@@ -52,15 +52,23 @@ class Salient_UI_Core {
 	 * Configure tous les hooks et charge les composants nécessaires
 	 */
 	private function init() {
+		salient_ui_log( 'Core::init() appelé' );
+
 		// Charger les traductions
 		add_action( 'init', array( $this, 'load_textdomain' ) );
 
 		// Initialiser la gestion des assets (CSS/JS)
 		Salient_UI_Assets::get_instance();
 
-		// Hook pour intégrer avec WPBakery Page Builder
-		// vc_before_init se déclenche quand WPBakery est prêt
-		add_action( 'vc_before_init', array( $this, 'init_wpbakery' ) );
+		// Initialiser WPBakery immédiatement si vc_map existe déjà
+		if ( function_exists( 'vc_map' ) ) {
+			salient_ui_log( 'vc_map existe déjà - Initialisation immédiate de WPBakery' );
+			$this->init_wpbakery();
+		} else {
+			salient_ui_log( 'vc_map n\'existe pas encore - Hook sur vc_before_init' );
+			// Sinon, attendre le hook vc_before_init
+			add_action( 'vc_before_init', array( $this, 'init_wpbakery' ) );
+		}
 	}
 
 	/**
@@ -80,8 +88,13 @@ class Salient_UI_Core {
 	 * Appelé sur le hook 'vc_before_init'
 	 */
 	public function init_wpbakery() {
+		salient_ui_log( 'Core::init_wpbakery() appelé' );
+		salient_ui_log( 'vc_map disponible : ' . ( function_exists( 'vc_map' ) ? 'OUI' : 'NON' ) );
+
 		// Initialiser le gestionnaire d'éléments WPBakery
 		Salient_UI_WPBakery::get_instance();
+
+		salient_ui_log( 'WPBakery gestionnaire initialisé' );
 	}
 
 	/**

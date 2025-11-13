@@ -24,11 +24,15 @@ abstract class Salient_UI_Element_Base {
 	 * Initialise l'élément en enregistrant le shortcode et la configuration WPBakery
 	 */
 	public function __construct() {
-		// Enregistrer l'élément dans WPBakery sur le hook 'init'
-		add_action( 'init', array( $this, 'map_element' ) );
+		salient_ui_log( 'Element_Base::__construct() appelé pour ' . get_class( $this ) );
 
 		// Enregistrer le shortcode WordPress
 		add_shortcode( $this->get_shortcode_tag(), array( $this, 'render' ) );
+		salient_ui_log( 'Shortcode enregistré : ' . $this->get_shortcode_tag() );
+
+		// Enregistrer l'élément dans WPBakery immédiatement
+		// (pas besoin de hook car on est déjà dans le bon contexte)
+		$this->map_element();
 	}
 
 	/**
@@ -59,19 +63,25 @@ abstract class Salient_UI_Element_Base {
 
 	/**
 	 * Enregistrer l'élément dans WPBakery Page Builder
-	 * Appelé sur le hook 'init'
+	 * Appelé directement depuis le constructeur
 	 */
 	public function map_element() {
+		$class_name = get_class( $this );
+		salient_ui_log( "map_element() appelé pour {$class_name}" );
+
 		// Vérifier que la fonction vc_map existe (WPBakery actif)
 		if ( ! function_exists( 'vc_map' ) ) {
+			salient_ui_log( "✗ ERREUR : vc_map() n'existe pas pour {$class_name}" );
 			return;
 		}
 
 		// Récupérer la configuration de l'élément
 		$config = $this->get_vc_config();
+		salient_ui_log( "Configuration récupérée pour {$class_name} : base = " . ( isset( $config['base'] ) ? $config['base'] : 'non défini' ) );
 
 		// Enregistrer l'élément dans WPBakery
 		vc_map( $config );
+		salient_ui_log( "✓ Élément {$class_name} enregistré dans WPBakery avec succès" );
 	}
 
 	/**

@@ -27,6 +27,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'SALIENT_UI_VERSION', '1.0.0' );
 define( 'SALIENT_UI_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SALIENT_UI_URL', plugin_dir_url( __FILE__ ) );
+define( 'SALIENT_UI_DEBUG', defined( 'WP_DEBUG' ) && WP_DEBUG );
+
+/**
+ * Fonction de debug pour SalientUI
+ * Log les messages si WP_DEBUG est activé
+ *
+ * @param string $message Message à logger
+ */
+function salient_ui_log( $message ) {
+	if ( SALIENT_UI_DEBUG ) {
+		error_log( '[SalientUI] ' . $message );
+	}
+}
 
 /**
  * Autoloader PSR-4 pour charger automatiquement les classes
@@ -68,6 +81,9 @@ function salient_ui_autoloader( $class_name ) {
 	// Charger le fichier s'il existe
 	if ( file_exists( $file ) ) {
 		require_once $file;
+		salient_ui_log( "Classe chargée : {$class_name} depuis {$file}" );
+	} else {
+		salient_ui_log( "ERREUR : Fichier introuvable pour {$class_name} : {$file}" );
 	}
 }
 spl_autoload_register( 'salient_ui_autoloader' );
@@ -78,17 +94,24 @@ spl_autoload_register( 'salient_ui_autoloader' );
  * @return bool True si WPBakery est actif, false sinon
  */
 function salient_ui_check_wpbakery() {
-	// Vérifier si la fonction principale de WPBakery existe
-	if ( ! function_exists( 'vc_map' ) ) {
-		return false;
+	// Vérifier si WPBakery est actif via plusieurs méthodes
+
+	// Méthode 1 : Vérifier la constante WPB_VC_VERSION
+	if ( defined( 'WPB_VC_VERSION' ) ) {
+		return true;
 	}
 
-	// Vérifier si la constante WPB_VC_VERSION est définie
-	if ( ! defined( 'WPB_VC_VERSION' ) ) {
-		return false;
+	// Méthode 2 : Vérifier si la classe principale existe
+	if ( class_exists( 'Vc_Manager' ) ) {
+		return true;
 	}
 
-	return true;
+	// Méthode 3 : Vérifier si le plugin est dans la liste des plugins actifs
+	if ( in_array( 'js_composer/js_composer.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+		return true;
+	}
+
+	return false;
 }
 
 /**
@@ -127,17 +150,26 @@ register_activation_hook( __FILE__, 'salient_ui_activate' );
 
 /**
  * Initialiser le plugin
- * Appelé sur le hook 'plugins_loaded'
+ * Appelé sur le hook 'init' avec priorité 20 (après WPBakery)
  */
 function salient_ui_init() {
+	salient_ui_log( '=== Initialisation de SalientUI ===' );
+
 	// Vérifier que WPBakery est actif
 	if ( ! salient_ui_check_wpbakery() ) {
+		salient_ui_log( 'ERREUR : WPBakery Page Builder n\'est pas détecté' );
 		// Afficher une notice d'administration
 		add_action( 'admin_notices', 'salient_ui_admin_notice' );
 		return;
 	}
 
+	salient_ui_log( 'WPBakery détecté - Version : ' . ( defined( 'WPB_VC_VERSION' ) ? WPB_VC_VERSION : 'inconnue' ) );
+	salient_ui_log( 'Fonction vc_map disponible : ' . ( function_exists( 'vc_map' ) ? 'OUI' : 'NON' ) );
+
 	// Initialiser la classe principale
 	Salient_UI_Core::get_instance();
+
+	salient_ui_log( 'Classe Salient_UI_Core initialisée' );
 }
-add_action( 'plugins_loaded', 'salient_ui_init' );
+// Priorité 20 pour s'assurer que WPBakery est chargé (WPBakery utilise priorité 9)
+add_action( 'init', 'salient_ui_init', 20 );

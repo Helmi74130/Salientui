@@ -52,6 +52,8 @@ class Salient_UI_WPBakery {
 	 * Liste extensible pour ajouter facilement de nouveaux composants
 	 */
 	private function load_elements() {
+		salient_ui_log( 'WPBakery::load_elements() appelé' );
+
 		// Liste des éléments à charger
 		// Pour ajouter un nouvel élément, il suffit d'ajouter le nom de la classe ici
 		$elements = array(
@@ -59,14 +61,20 @@ class Salient_UI_WPBakery {
 			'Salient_UI_Card',   // Élément Card
 		);
 
+		salient_ui_log( 'Nombre d\'éléments à charger : ' . count( $elements ) );
+
 		// Instancier chaque élément
 		foreach ( $elements as $element_class ) {
+			salient_ui_log( "Tentative de chargement de la classe : {$element_class}" );
+
 			// Vérifier que la classe existe avant de l'instancier
 			if ( class_exists( $element_class ) ) {
 				// Instancier l'élément
 				// Le constructeur de chaque élément s'occupe de l'enregistrement
-				new $element_class();
+				$element = new $element_class();
+				salient_ui_log( "✓ Classe {$element_class} instanciée avec succès" );
 			} else {
+				salient_ui_log( "✗ ERREUR : La classe {$element_class} n'existe pas" );
 				// Log d'erreur si la classe n'existe pas (en mode debug uniquement)
 				if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 					error_log(
@@ -78,6 +86,8 @@ class Salient_UI_WPBakery {
 				}
 			}
 		}
+
+		salient_ui_log( 'Chargement des éléments terminé' );
 	}
 
 	/**
