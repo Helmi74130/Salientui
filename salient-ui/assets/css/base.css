@@ -1,0 +1,111 @@
+/**
+ * SalientUI - Styles de base et variables CSS
+ * Variables communes, reset et utilitaires partagés
+ *
+ * @package SalientUI
+ * @since 1.0.0
+ */
+
+/* ==========================================================================
+   Variables CSS
+   ========================================================================== */
+
+:root {
+	/* Couleurs principales */
+	--sui-primary: #18181b;
+	--sui-primary-foreground: #fafafa;
+
+	/* Couleurs secondaires */
+	--sui-secondary: #f4f4f5;
+	--sui-secondary-foreground: #18181b;
+
+	/* Couleurs destructive */
+	--sui-destructive: #ef4444;
+	--sui-destructive-foreground: #fafafa;
+
+	/* Couleurs de bordure */
+	--sui-border: #e4e4e7;
+	--sui-input: #e4e4e7;
+
+	/* Couleurs de fond */
+	--sui-background: #ffffff;
+	--sui-foreground: #18181b;
+
+	/* Couleurs de carte */
+	--sui-card: #ffffff;
+	--sui-card-foreground: #18181b;
+
+	/* Couleurs muted */
+	--sui-muted: #f4f4f5;
+	--sui-muted-foreground: #71717a;
+
+	/* Couleurs accent */
+	--sui-accent: #f4f4f5;
+	--sui-accent-foreground: #18181b;
+
+	/* Rayon de bordure */
+	--sui-radius: 0.5rem;
+	--sui-radius-sm: 0.375rem;
+	--sui-radius-lg: 0.75rem;
+
+	/* Transitions */
+	--sui-transition: all 0.2s ease-in-out;
+
+	/* Ring (focus) */
+	--sui-ring: #18181b;
+	--sui-ring-offset: #ffffff;
+}
+
+/* ==========================================================================
+   Reset de base
+   ========================================================================== */
+
+.salient-ui-button,
+.salient-ui-card {
+	box-sizing: border-box;
+}
+
+.salient-ui-button *,
+.salient-ui-card * {
+	box-sizing: border-box;
+}
+
+/* ==========================================================================
+   Dark Mode Support
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--sui-primary: #fafafa;
+		--sui-primary-foreground: #18181b;
+		--sui-secondary: #27272a;
+		--sui-secondary-foreground: #fafafa;
+		--sui-border: #27272a;
+		--sui-background: #09090b;
+		--sui-foreground: #fafafa;
+		--sui-card: #18181b;
+		--sui-card-foreground: #fafafa;
+		--sui-muted: #27272a;
+		--sui-muted-foreground: #a1a1aa;
+		--sui-accent: #27272a;
+		--sui-accent-foreground: #fafafa;
+		--sui-ring: #fafafa;
+		--sui-ring-offset: #18181b;
+	}
+}
+
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+
+.salient-ui-sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}

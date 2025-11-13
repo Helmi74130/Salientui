@@ -29,6 +29,15 @@ class Salient_UI_Button extends Salient_UI_Element_Base {
 	}
 
 	/**
+	 * Obtenir le slug de l'élément (pour les assets CSS/JS)
+	 *
+	 * @return string Slug de l'élément
+	 */
+	protected function get_element_slug() {
+		return 'button';
+	}
+
+	/**
 	 * Obtenir la configuration WPBakery pour cet élément
 	 *
 	 * @return array Configuration de l'élément pour vc_map()

@@ -33,6 +33,9 @@ abstract class Salient_UI_Element_Base {
 		// Enregistrer l'élément dans WPBakery immédiatement
 		// (pas besoin de hook car on est déjà dans le bon contexte)
 		$this->map_element();
+
+		// Enregistrer les assets CSS/JS de l'élément
+		$this->register_element_assets();
 	}
 
 	/**
@@ -42,6 +45,14 @@ abstract class Salient_UI_Element_Base {
 	 * @return string Tag du shortcode (ex: 'salient_ui_button')
 	 */
 	abstract protected function get_shortcode_tag();
+
+	/**
+	 * Obtenir le slug de l'élément (pour les assets CSS/JS)
+	 * Doit être implémenté par les classes enfants
+	 *
+	 * @return string Slug de l'élément (ex: 'button', 'card')
+	 */
+	abstract protected function get_element_slug();
 
 	/**
 	 * Obtenir la configuration WPBakery pour cet élément
@@ -82,6 +93,62 @@ abstract class Salient_UI_Element_Base {
 		// Enregistrer l'élément dans WPBakery
 		vc_map( $config );
 		salient_ui_log( "✓ Élément {$class_name} enregistré dans WPBakery avec succès" );
+	}
+
+	/**
+	 * Enregistrer les assets CSS et JS de l'élément
+	 * Appelé depuis le constructeur
+	 */
+	protected function register_element_assets() {
+		$slug = $this->get_element_slug();
+		$class_name = get_class( $this );
+
+		salient_ui_log( "Enregistrement des assets pour {$class_name} (slug: {$slug})" );
+
+		// Enregistrer le CSS de l'élément
+		$css_file = SALIENT_UI_PATH . 'assets/css/elements/' . $slug . '.css';
+		if ( file_exists( $css_file ) ) {
+			$handle = 'salient-ui-' . $slug;
+			wp_register_style(
+				$handle,
+				SALIENT_UI_URL . 'assets/css/elements/' . $slug . '.css',
+				array( 'salient-ui-base' ), // Dépend du CSS de base
+				SALIENT_UI_VERSION,
+				'all'
+			);
+
+			// Enqueue immédiatement (sera chargé sur toutes les pages)
+			// Alternative : enqueue seulement si le shortcode est utilisé (via has_shortcode)
+			add_action( 'wp_enqueue_scripts', function() use ( $handle ) {
+				wp_enqueue_style( $handle );
+			} );
+
+			salient_ui_log( "✓ CSS enregistré : {$handle}" );
+		} else {
+			salient_ui_log( "⚠ Fichier CSS introuvable : {$css_file}" );
+		}
+
+		// Enregistrer le JS de l'élément
+		$js_file = SALIENT_UI_PATH . 'assets/js/elements/' . $slug . '.js';
+		if ( file_exists( $js_file ) ) {
+			$handle = 'salient-ui-' . $slug;
+			wp_register_script(
+				$handle,
+				SALIENT_UI_URL . 'assets/js/elements/' . $slug . '.js',
+				array( 'jquery', 'salient-ui-core' ), // Dépend de jQuery et du core
+				SALIENT_UI_VERSION,
+				true
+			);
+
+			// Enqueue immédiatement
+			add_action( 'wp_enqueue_scripts', function() use ( $handle ) {
+				wp_enqueue_script( $handle );
+			} );
+
+			salient_ui_log( "✓ JS enregistré : {$handle}" );
+		} else {
+			salient_ui_log( "⚠ Fichier JS introuvable : {$js_file}" );
+		}
 	}
 
 	/**
