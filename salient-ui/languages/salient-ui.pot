@@ -1,0 +1,201 @@
+# Copyright (C) 2025 SalientUI
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: SalientUI 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/Helmi74130/Salientui/issues\n"
+"POT-Creation-Date: 2025-01-13 12:00:00+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2025-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: WordPress\n"
+"X-Domain: salient-ui\n"
+
+#: salient-ui.php
+msgid "SalientUI"
+msgstr ""
+
+#: salient-ui.php
+msgid "nécessite que WPBakery Page Builder soit installé et activé."
+msgstr ""
+
+#: salient-ui.php
+msgid "SalientUI nécessite que WPBakery Page Builder soit installé et activé. Veuillez installer WPBakery Page Builder avant d'activer ce plugin."
+msgstr ""
+
+#: salient-ui.php
+msgid "Erreur d'activation du plugin"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "Modern Button"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "SalientUI"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "Modern styled button with multiple variants"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "Texte du bouton"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "Click me"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "Texte affiché sur le bouton"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "Variante"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "Default"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "Secondary"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "Outline"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "Ghost"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "Destructive"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "Style du bouton"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "Taille"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "Small"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "Medium"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "Large"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "Taille du bouton"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "Lien"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "URL du lien du bouton"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "Classe d'icône"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "Classe CSS de l'icône (ex: fa fa-arrow-right)"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "Position de l'icône"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "Left"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "Right"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "Position de l'icône par rapport au texte"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "Classe CSS supplémentaire"
+msgstr ""
+
+#: includes/elements/class-salient-ui-button.php
+msgid "Classe CSS personnalisée pour ce bouton"
+msgstr ""
+
+#: includes/elements/class-salient-ui-card.php
+msgid "Modern Card"
+msgstr ""
+
+#: includes/elements/class-salient-ui-card.php
+msgid "Card container with header, content, and footer"
+msgstr ""
+
+#: includes/elements/class-salient-ui-card.php
+msgid "Titre"
+msgstr ""
+
+#: includes/elements/class-salient-ui-card.php
+msgid "Titre de la card"
+msgstr ""
+
+#: includes/elements/class-salient-ui-card.php
+msgid "Contenu"
+msgstr ""
+
+#: includes/elements/class-salient-ui-card.php
+msgid "Contenu principal de la card"
+msgstr ""
+
+#: includes/elements/class-salient-ui-card.php
+msgid "Image"
+msgstr ""
+
+#: includes/elements/class-salient-ui-card.php
+msgid "Image de la card (optionnelle)"
+msgstr ""
+
+#: includes/elements/class-salient-ui-card.php
+msgid "Lien de la card (optionnel)"
+msgstr ""
+
+#: includes/elements/class-salient-ui-card.php
+msgid "Bordered"
+msgstr ""
+
+#: includes/elements/class-salient-ui-card.php
+msgid "Elevated"
+msgstr ""
+
+#: includes/elements/class-salient-ui-card.php
+msgid "Style de la card"
+msgstr ""
+
+#: includes/elements/class-salient-ui-card.php
+msgid "Classe CSS personnalisée pour cette card"
+msgstr ""
+
+#: includes/templates/card.php
+msgid "En savoir plus"
+msgstr ""

@@ -1,0 +1,435 @@
+/**
+ * SalientUI - Styles des composants modernes
+ * Inspiré de shadcn/ui
+ *
+ * @package SalientUI
+ * @since 1.0.0
+ */
+
+/* ==========================================================================
+   Variables CSS
+   ========================================================================== */
+
+:root {
+	/* Couleurs principales */
+	--sui-primary: #18181b;
+	--sui-primary-foreground: #fafafa;
+
+	/* Couleurs secondaires */
+	--sui-secondary: #f4f4f5;
+	--sui-secondary-foreground: #18181b;
+
+	/* Couleurs destructive */
+	--sui-destructive: #ef4444;
+	--sui-destructive-foreground: #fafafa;
+
+	/* Couleurs de bordure */
+	--sui-border: #e4e4e7;
+	--sui-input: #e4e4e7;
+
+	/* Couleurs de fond */
+	--sui-background: #ffffff;
+	--sui-foreground: #18181b;
+
+	/* Couleurs de carte */
+	--sui-card: #ffffff;
+	--sui-card-foreground: #18181b;
+
+	/* Couleurs muted */
+	--sui-muted: #f4f4f5;
+	--sui-muted-foreground: #71717a;
+
+	/* Couleurs accent */
+	--sui-accent: #f4f4f5;
+	--sui-accent-foreground: #18181b;
+
+	/* Rayon de bordure */
+	--sui-radius: 0.5rem;
+	--sui-radius-sm: 0.375rem;
+	--sui-radius-lg: 0.75rem;
+
+	/* Transitions */
+	--sui-transition: all 0.2s ease-in-out;
+
+	/* Ring (focus) */
+	--sui-ring: #18181b;
+	--sui-ring-offset: #ffffff;
+}
+
+/* ==========================================================================
+   Reset de base
+   ========================================================================== */
+
+.salient-ui-button,
+.salient-ui-card {
+	box-sizing: border-box;
+}
+
+.salient-ui-button *,
+.salient-ui-card * {
+	box-sizing: border-box;
+}
+
+/* ==========================================================================
+   BUTTON - Styles de base
+   ========================================================================== */
+
+.salient-ui-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	white-space: nowrap;
+	border-radius: var(--sui-radius);
+	font-size: 0.875rem;
+	font-weight: 500;
+	transition: var(--sui-transition);
+	text-decoration: none;
+	cursor: pointer;
+	border: 1px solid transparent;
+	outline: none;
+	line-height: 1;
+	font-family: inherit;
+}
+
+.salient-ui-button:focus-visible {
+	outline: none;
+	box-shadow: 0 0 0 2px var(--sui-ring-offset), 0 0 0 4px var(--sui-ring);
+}
+
+.salient-ui-button:disabled {
+	pointer-events: none;
+	opacity: 0.5;
+}
+
+/* BUTTON - Tailles
+   ========================================================================== */
+
+.salient-ui-button--sm {
+	height: 2.25rem; /* 36px */
+	padding: 0 0.75rem;
+	font-size: 0.8125rem;
+}
+
+.salient-ui-button--md {
+	height: 2.5rem; /* 40px */
+	padding: 0 1rem;
+	font-size: 0.875rem;
+}
+
+.salient-ui-button--lg {
+	height: 2.75rem; /* 44px */
+	padding: 0 2rem;
+	font-size: 0.9375rem;
+}
+
+/* BUTTON - Variante Default
+   ========================================================================== */
+
+.salient-ui-button--default {
+	background-color: var(--sui-primary);
+	color: var(--sui-primary-foreground);
+}
+
+.salient-ui-button--default:hover {
+	background-color: #27272a;
+	transform: translateY(-1px);
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.salient-ui-button--default:active {
+	transform: translateY(0);
+}
+
+/* BUTTON - Variante Secondary
+   ========================================================================== */
+
+.salient-ui-button--secondary {
+	background-color: var(--sui-secondary);
+	color: var(--sui-secondary-foreground);
+}
+
+.salient-ui-button--secondary:hover {
+	background-color: #e4e4e7;
+	transform: translateY(-1px);
+}
+
+.salient-ui-button--secondary:active {
+	transform: translateY(0);
+}
+
+/* BUTTON - Variante Outline
+   ========================================================================== */
+
+.salient-ui-button--outline {
+	border: 1px solid var(--sui-input);
+	background-color: transparent;
+	color: var(--sui-foreground);
+}
+
+.salient-ui-button--outline:hover {
+	background-color: var(--sui-accent);
+	color: var(--sui-accent-foreground);
+	border-color: var(--sui-accent-foreground);
+	transform: translateY(-1px);
+}
+
+.salient-ui-button--outline:active {
+	transform: translateY(0);
+}
+
+/* BUTTON - Variante Ghost
+   ========================================================================== */
+
+.salient-ui-button--ghost {
+	background-color: transparent;
+	color: var(--sui-foreground);
+}
+
+.salient-ui-button--ghost:hover {
+	background-color: var(--sui-accent);
+	color: var(--sui-accent-foreground);
+}
+
+/* BUTTON - Variante Destructive
+   ========================================================================== */
+
+.salient-ui-button--destructive {
+	background-color: var(--sui-destructive);
+	color: var(--sui-destructive-foreground);
+}
+
+.salient-ui-button--destructive:hover {
+	background-color: #dc2626;
+	transform: translateY(-1px);
+	box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.3), 0 2px 4px -1px rgba(239, 68, 68, 0.2);
+}
+
+.salient-ui-button--destructive:active {
+	transform: translateY(0);
+}
+
+/* BUTTON - Icônes
+   ========================================================================== */
+
+.salient-ui-button__icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.salient-ui-button__icon--left {
+	margin-right: 0.25rem;
+}
+
+.salient-ui-button__icon--right {
+	margin-left: 0.25rem;
+}
+
+.salient-ui-button__text {
+	display: inline-block;
+}
+
+/* ==========================================================================
+   CARD - Styles de base
+   ========================================================================== */
+
+.salient-ui-card {
+	border-radius: var(--sui-radius-lg);
+	background-color: var(--sui-card);
+	color: var(--sui-card-foreground);
+	overflow: hidden;
+	transition: var(--sui-transition);
+}
+
+/* CARD - Variante Default
+   ========================================================================== */
+
+.salient-ui-card--default {
+	border: 1px solid var(--sui-border);
+}
+
+/* CARD - Variante Bordered
+   ========================================================================== */
+
+.salient-ui-card--bordered {
+	border: 2px solid var(--sui-border);
+}
+
+/* CARD - Variante Elevated
+   ========================================================================== */
+
+.salient-ui-card--elevated {
+	border: 1px solid var(--sui-border);
+	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.salient-ui-card--elevated:hover {
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+	transform: translateY(-2px);
+}
+
+/* CARD - Clickable
+   ========================================================================== */
+
+.salient-ui-card--clickable {
+	cursor: pointer;
+}
+
+.salient-ui-card--clickable:hover {
+	border-color: var(--sui-primary);
+}
+
+/* CARD - Image
+   ========================================================================== */
+
+.salient-ui-card__image {
+	width: 100%;
+	overflow: hidden;
+	line-height: 0;
+}
+
+.salient-ui-card__image img {
+	width: 100%;
+	height: auto;
+	display: block;
+	object-fit: cover;
+}
+
+/* CARD - Body
+   ========================================================================== */
+
+.salient-ui-card__body {
+	padding: 1.5rem;
+}
+
+.salient-ui-card--with-image .salient-ui-card__body {
+	padding-top: 1rem;
+}
+
+/* CARD - Title
+   ========================================================================== */
+
+.salient-ui-card__title {
+	font-size: 1.25rem;
+	font-weight: 600;
+	line-height: 1.4;
+	margin: 0 0 0.75rem 0;
+	color: var(--sui-card-foreground);
+}
+
+/* CARD - Content
+   ========================================================================== */
+
+.salient-ui-card__content {
+	font-size: 0.875rem;
+	line-height: 1.6;
+	color: var(--sui-muted-foreground);
+	margin-bottom: 1rem;
+}
+
+.salient-ui-card__content:last-child {
+	margin-bottom: 0;
+}
+
+.salient-ui-card__content p {
+	margin: 0 0 1em 0;
+}
+
+.salient-ui-card__content p:last-child {
+	margin-bottom: 0;
+}
+
+/* CARD - Footer
+   ========================================================================== */
+
+.salient-ui-card__footer {
+	padding-top: 1rem;
+	border-top: 1px solid var(--sui-border);
+	margin-top: 1rem;
+}
+
+/* CARD - Link
+   ========================================================================== */
+
+.salient-ui-card__link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.875rem;
+	font-weight: 500;
+	color: var(--sui-primary);
+	text-decoration: none;
+	transition: var(--sui-transition);
+}
+
+.salient-ui-card__link:hover {
+	color: #27272a;
+}
+
+.salient-ui-card__link-arrow {
+	display: inline-block;
+	transition: transform 0.2s ease-in-out;
+}
+
+.salient-ui-card__link:hover .salient-ui-card__link-arrow {
+	transform: translateX(4px);
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 768px) {
+	.salient-ui-button {
+		width: 100%;
+	}
+
+	.salient-ui-card__body {
+		padding: 1rem;
+	}
+
+	.salient-ui-card__title {
+		font-size: 1.125rem;
+	}
+}
+
+/* ==========================================================================
+   Dark Mode Support (Optionnel)
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--sui-primary: #fafafa;
+		--sui-primary-foreground: #18181b;
+		--sui-secondary: #27272a;
+		--sui-secondary-foreground: #fafafa;
+		--sui-border: #27272a;
+		--sui-background: #09090b;
+		--sui-foreground: #fafafa;
+		--sui-card: #18181b;
+		--sui-card-foreground: #fafafa;
+		--sui-muted: #27272a;
+		--sui-muted-foreground: #a1a1aa;
+		--sui-accent: #27272a;
+		--sui-accent-foreground: #fafafa;
+		--sui-ring: #fafafa;
+		--sui-ring-offset: #18181b;
+	}
+}
+
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+
+.salient-ui-sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}

@@ -1,0 +1,94 @@
+<?php
+/**
+ * Gestion de l'intégration avec WPBakery Page Builder
+ * Charge et initialise tous les éléments personnalisés
+ *
+ * @package SalientUI
+ * @since 1.0.0
+ */
+
+// Si ce fichier est appelé directement, on arrête l'exécution
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * Class Salient_UI_WPBakery
+ *
+ * Pattern Singleton pour garantir une seule instance de la classe
+ */
+class Salient_UI_WPBakery {
+
+	/**
+	 * Instance unique de la classe (Singleton)
+	 *
+	 * @var Salient_UI_WPBakery|null
+	 */
+	private static $instance = null;
+
+	/**
+	 * Constructeur privé pour empêcher l'instanciation directe
+	 * Appelé uniquement via get_instance()
+	 */
+	private function __construct() {
+		$this->load_elements();
+	}
+
+	/**
+	 * Récupérer l'instance unique de la classe (Singleton)
+	 *
+	 * @return Salient_UI_WPBakery Instance unique de la classe
+	 */
+	public static function get_instance() {
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
+
+	/**
+	 * Charger tous les éléments WPBakery personnalisés
+	 * Liste extensible pour ajouter facilement de nouveaux composants
+	 */
+	private function load_elements() {
+		// Liste des éléments à charger
+		// Pour ajouter un nouvel élément, il suffit d'ajouter le nom de la classe ici
+		$elements = array(
+			'Salient_UI_Button', // Élément Button
+			'Salient_UI_Card',   // Élément Card
+		);
+
+		// Instancier chaque élément
+		foreach ( $elements as $element_class ) {
+			// Vérifier que la classe existe avant de l'instancier
+			if ( class_exists( $element_class ) ) {
+				// Instancier l'élément
+				// Le constructeur de chaque élément s'occupe de l'enregistrement
+				new $element_class();
+			} else {
+				// Log d'erreur si la classe n'existe pas (en mode debug uniquement)
+				if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+					error_log(
+						sprintf(
+							'SalientUI: La classe %s n\'existe pas.',
+							$element_class
+						)
+					);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Empêcher le clonage de l'instance (Singleton)
+	 */
+	private function __clone() {}
+
+	/**
+	 * Empêcher la désérialisation de l'instance (Singleton)
+	 */
+	public function __wakeup() {
+		throw new Exception( 'Cannot unserialize singleton' );
+	}
+}
