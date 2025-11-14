@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <!-- Face avant du prisme -->
+  <rect x="8" y="20" width="48" height="20" rx="4" fill="#18181b" opacity="0.9"/>
+
+  <!-- Face supérieure (effet 3D) -->
+  <path d="M 8 20 L 12 16 L 60 16 L 56 20 Z" fill="#27272a"/>
+
+  <!-- Face droite (effet 3D) -->
+  <path d="M 56 20 L 60 16 L 60 36 L 56 40 Z" fill="#3f3f46"/>
+
+  <!-- Texte "3D" -->
+  <text x="32" y="33" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#fafafa" text-anchor="middle">3D</text>
+
+  <!-- Face arrière suggérée (lignes pointillées) -->
+  <rect x="10" y="22" width="44" height="16" rx="4" fill="none" stroke="#71717a" stroke-width="1" stroke-dasharray="2,2" opacity="0.5"/>
+</svg>

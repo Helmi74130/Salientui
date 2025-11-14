@@ -57,8 +57,9 @@ class Salient_UI_WPBakery {
 		// Liste des éléments à charger
 		// Pour ajouter un nouvel élément, il suffit d'ajouter le nom de la classe ici
 		$elements = array(
-			'Salient_UI_Button', // Élément Button
-			'Salient_UI_Card',   // Élément Card
+			'Salient_UI_Button',          // Élément Button
+			'Salient_UI_Card',            // Élément Card
+			'Salient_UI_Prism_Button_V2', // Élément Prism Button v2
 		);
 
 		salient_ui_log( 'Nombre d\'éléments à charger : ' . count( $elements ) );
