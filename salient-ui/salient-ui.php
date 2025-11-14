@@ -67,23 +67,23 @@ function salient_ui_autoloader( $class_name ) {
 	// Salient_UI_Element_Base → element-base
 	$file_name = strtolower( str_replace( '_', '-', $relative_class ) );
 
-	// Chemin complet du fichier
-	// class-salient-ui-{nom}.php
-	$file = SALIENT_UI_PATH . 'includes/class-salient-ui-' . $file_name . '.php';
+	// Essayer d'abord dans includes/elements/ (pour tous les éléments)
+	$file_elements = SALIENT_UI_PATH . 'includes/elements/class-salient-ui-' . $file_name . '.php';
 
-	// Cas spécial pour les éléments dans le sous-dossier elements/
-	if ( strpos( $class_name, 'Salient_UI_Element_' ) === 0 ||
-	     strpos( $class_name, 'Salient_UI_Button' ) === 0 ||
-	     strpos( $class_name, 'Salient_UI_Card' ) === 0 ) {
-		$file = SALIENT_UI_PATH . 'includes/elements/class-salient-ui-' . $file_name . '.php';
-	}
+	// Sinon essayer dans includes/ (pour les classes principales)
+	$file_includes = SALIENT_UI_PATH . 'includes/class-salient-ui-' . $file_name . '.php';
 
-	// Charger le fichier s'il existe
-	if ( file_exists( $file ) ) {
-		require_once $file;
-		salient_ui_log( "Classe chargée : {$class_name} depuis {$file}" );
+	// Charger le fichier depuis elements/ en priorité
+	if ( file_exists( $file_elements ) ) {
+		require_once $file_elements;
+		salient_ui_log( "Classe chargée : {$class_name} depuis {$file_elements}" );
+	} elseif ( file_exists( $file_includes ) ) {
+		require_once $file_includes;
+		salient_ui_log( "Classe chargée : {$class_name} depuis {$file_includes}" );
 	} else {
-		salient_ui_log( "ERREUR : Fichier introuvable pour {$class_name} : {$file}" );
+		salient_ui_log( "ERREUR : Fichier introuvable pour {$class_name}" );
+		salient_ui_log( "  Cherché dans : {$file_elements}" );
+		salient_ui_log( "  Cherché dans : {$file_includes}" );
 	}
 }
 spl_autoload_register( 'salient_ui_autoloader' );
