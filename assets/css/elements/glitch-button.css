@@ -1,0 +1,360 @@
+/**
+ * SalientUI - Styles du composant Glitch Button
+ * Bouton avec effet de caractères glitch au survol
+ *
+ * @package SalientUI
+ * @since 1.0.0
+ */
+
+/* ==========================================================================
+   GLITCH BUTTON - Variables et reset
+   ========================================================================== */
+
+.salient-ui-gb-button,
+.salient-ui-gb-button *,
+.salient-ui-gb-button :after,
+.salient-ui-gb-button :before,
+.salient-ui-gb-button::after,
+.salient-ui-gb-button::before {
+	border: 0 solid;
+	box-sizing: border-box;
+}
+
+/* ==========================================================================
+   GLITCH BUTTON - Bouton principal
+   ========================================================================== */
+
+.salient-ui-gb-button {
+	/* Variables par défaut (surchargées par inline styles) */
+	--sui-gb-bg-default: rgb(41, 41, 41);
+	--sui-gb-padding: 15px 20px;
+	--sui-gb-bg-hover: rgb(51, 51, 51);
+	--sui-gb-transition: 0.3s ease;
+	--sui-gb-letter-spacing: 0.1rem;
+	--sui-gb-animation-duration: 1.2s;
+	--sui-gb-animation-easing: linear;
+	--sui-gb-animation-mode: both;
+	--sui-gb-shadow-color: rgba(0, 0, 0, 0.137);
+	--sui-gb-shadow: 0 2px 10px 0 var(--sui-gb-shadow-color);
+	--sui-gb-text-color-hover: #FAC921;
+	--sui-gb-text-color-default: #fff;
+	--sui-gb-font-size: 16px;
+	--sui-gb-font-weight: 600;
+	--sui-gb-border-radius: 0px;
+
+	/* Layout */
+	box-sizing: border-box;
+	padding: var(--sui-gb-padding);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	
+	/* Style */
+	color: var(--sui-gb-text-color-default);
+	font-size: var(--sui-gb-font-size);
+	font-weight: var(--sui-gb-font-weight);
+	background: var(--sui-gb-bg-default);
+	border: none;
+	border-radius: var(--sui-gb-border-radius);
+	cursor: pointer;
+	overflow: hidden;
+	box-shadow: var(--sui-gb-shadow);
+	
+	/* Transition */
+	transition: var(--sui-gb-transition);
+	
+	/* Reset */
+	-webkit-tap-highlight-color: transparent;
+	-webkit-appearance: button;
+	text-decoration: none;
+	margin: 0;
+}
+
+/* Si c'est un lien */
+.salient-ui-gb-button[href] {
+	display: inline-flex;
+}
+
+/* État disabled */
+.salient-ui-gb-button:disabled {
+	cursor: default;
+	opacity: 0.5;
+}
+
+/* État hover et focus */
+.salient-ui-gb-button:hover,
+.salient-ui-gb-button:focus {
+	background: var(--sui-gb-bg-hover);
+	transform: translateY(-2px);
+	box-shadow: 0 4px 14px 0 var(--sui-gb-shadow-color);
+}
+
+/* État active */
+.salient-ui-gb-button:active {
+	transform: translateY(0);
+}
+
+/* Focus pour accessibilité */
+.salient-ui-gb-button:focus {
+	outline: none;
+}
+
+.salient-ui-gb-button:focus-visible {
+	outline: 2px solid var(--sui-gb-text-color-hover);
+	outline-offset: 4px;
+}
+
+/* ==========================================================================
+   GLITCH BUTTON - Span texte
+   ========================================================================== */
+
+.salient-ui-gb-text {
+	/* Espacement des lettres */
+	letter-spacing: var(--sui-gb-letter-spacing);
+	transition: var(--sui-gb-transition);
+	box-sizing: border-box;
+	position: relative;
+	background: inherit;
+	z-index: 1;
+	pointer-events: none;
+	user-select: none;
+	-webkit-user-select: none;
+}
+
+/* Pseudo-élément pour l'effet glitch */
+.salient-ui-gb-text::before {
+	box-sizing: border-box;
+	position: absolute;
+	content: "";
+	background: inherit;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	color: var(--sui-gb-text-color-default);
+	z-index: 2;
+}
+
+/* Changement de couleur au hover */
+.salient-ui-gb-button:hover .salient-ui-gb-text,
+.salient-ui-gb-button:focus .salient-ui-gb-text {
+	color: var(--sui-gb-text-color-hover);
+}
+
+/* Animation glitch au hover */
+.salient-ui-gb-button:hover .salient-ui-gb-text::before,
+.salient-ui-gb-button:focus .salient-ui-gb-text::before {
+	animation: sui-gb-chitchat var(--sui-gb-animation-easing) var(--sui-gb-animation-mode) var(--sui-gb-animation-duration);
+}
+
+/* ==========================================================================
+   GLITCH BUTTON - Animation keyframes
+   ========================================================================== */
+
+@keyframes sui-gb-chitchat {
+	0% {
+		content: "#";
+	}
+	5% {
+		content: ".";
+	}
+	10% {
+		content: "^{";
+	}
+	15% {
+		content: "-!";
+	}
+	20% {
+		content: "#$_";
+	}
+	25% {
+		content: "№:0";
+	}
+	30% {
+		content: "#{+.";
+	}
+	35% {
+		content: "@}-?";
+	}
+	40% {
+		content: "?{4@%";
+	}
+	45% {
+		content: "=.,^!";
+	}
+	50% {
+		content: "?2@%";
+	}
+	55% {
+		content: "\\;1}]";
+	}
+	60% {
+		content: "?{%:%";
+		right: 0;
+		left: auto;
+	}
+	65% {
+		content: "|{f[4";
+		right: 0;
+		left: auto;
+	}
+	70% {
+		content: "{4%0%";
+		right: 0;
+		left: auto;
+	}
+	75% {
+		content: "'1_0<";
+		right: 0;
+		left: auto;
+	}
+	80% {
+		content: "{0%";
+		right: 0;
+		left: auto;
+	}
+	85% {
+		content: "]>'";
+		right: 0;
+		left: auto;
+	}
+	90% {
+		content: "4";
+		right: 0;
+		left: auto;
+	}
+	95% {
+		content: "2";
+		right: 0;
+		left: auto;
+	}
+	100% {
+		content: "";
+		right: 0;
+		left: auto;
+	}
+}
+
+/* Animation Webkit */
+@-webkit-keyframes sui-gb-chitchat {
+	0% {
+		content: "#";
+	}
+	5% {
+		content: ".";
+	}
+	10% {
+		content: "^{";
+	}
+	15% {
+		content: "-!";
+	}
+	20% {
+		content: "#$_";
+	}
+	25% {
+		content: "№:0";
+	}
+	30% {
+		content: "#{+.";
+	}
+	35% {
+		content: "@}-?";
+	}
+	40% {
+		content: "?{4@%";
+	}
+	45% {
+		content: "=.,^!";
+	}
+	50% {
+		content: "?2@%";
+	}
+	55% {
+		content: "\\;1}]";
+	}
+	60% {
+		content: "?{%:%";
+		right: 0;
+		left: auto;
+	}
+	65% {
+		content: "|{f[4";
+		right: 0;
+		left: auto;
+	}
+	70% {
+		content: "{4%0%";
+		right: 0;
+		left: auto;
+	}
+	75% {
+		content: "'1_0<";
+		right: 0;
+		left: auto;
+	}
+	80% {
+		content: "{0%";
+		right: 0;
+		left: auto;
+	}
+	85% {
+		content: "]>'";
+		right: 0;
+		left: auto;
+	}
+	90% {
+		content: "4";
+		right: 0;
+		left: auto;
+	}
+	95% {
+		content: "2";
+		right: 0;
+		left: auto;
+	}
+	100% {
+		content: "";
+		right: 0;
+		left: auto;
+	}
+}
+
+/* ==========================================================================
+   GLITCH BUTTON - Responsive
+   ========================================================================== */
+
+@media (max-width: 768px) {
+	.salient-ui-gb-button {
+		font-size: calc(var(--sui-gb-font-size) * 0.9);
+		padding: calc(15px * 0.9) calc(20px * 0.9);
+	}
+}
+
+@media (max-width: 480px) {
+	.salient-ui-gb-button {
+		font-size: calc(var(--sui-gb-font-size) * 0.8);
+		padding: calc(15px * 0.8) calc(20px * 0.8);
+	}
+}
+
+/* ==========================================================================
+   GLITCH BUTTON - Accessibilité
+   ========================================================================== */
+
+/* Respecter la préférence de mouvement réduit */
+@media (prefers-reduced-motion: reduce) {
+	.salient-ui-gb-button,
+	.salient-ui-gb-text {
+		transition: none;
+	}
+	
+	.salient-ui-gb-text::before {
+		animation: none !important;
+	}
+}
+
+/* Mode sombre */
+@media (prefers-color-scheme: dark) {
+	/* Les couleurs sont gérées par les inline styles */
+}

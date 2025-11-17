@@ -1,0 +1,278 @@
+/**
+ * SalientUI - Styles du composant Marquee Button
+ * Bouton avec effet de texte défilant au survol
+ *
+ * @package SalientUI
+ * @since 1.0.0
+ */
+
+/* ==========================================================================
+   MARQUEE BUTTON - Reset et base
+   ========================================================================== */
+
+.salient-ui-mb-button,
+.salient-ui-mb-button *,
+.salient-ui-mb-button :after,
+.salient-ui-mb-button :before,
+.salient-ui-mb-button::after,
+.salient-ui-mb-button::before {
+	border: 0 solid;
+	box-sizing: border-box;
+}
+
+/* ==========================================================================
+   MARQUEE BUTTON - Bouton principal
+   ========================================================================== */
+
+.salient-ui-mb-button {
+	/* Variables par défaut (surchargées par inline styles) */
+	--sui-mb-bg-color: #000;
+	--sui-mb-text-color: #fff;
+	--sui-mb-border-color: #fff;
+	--sui-mb-font-size: 100%;
+	--sui-mb-font-weight: 900;
+	--sui-mb-line-height: 1.5;
+	--sui-mb-text-transform: uppercase;
+	--sui-mb-padding: 0.8rem 3rem;
+	--sui-mb-border-radius: 99rem;
+	--sui-mb-border-width: 2px;
+	--sui-mb-marquee-spacing: 5em;
+	--sui-mb-marquee-start: 0em;
+	--sui-mb-marquee-end: 5em;
+	--sui-mb-marquee-duration: 1s;
+	--sui-mb-marquee-easing: linear;
+	--sui-mb-opacity-duration: 0.2s;
+	--sui-mb-opacity-easing: ease;
+
+	/* Reset */
+	-webkit-tap-highlight-color: transparent;
+	-webkit-appearance: button;
+	cursor: pointer;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	
+	/* Style */
+	background-color: var(--sui-mb-bg-color);
+	background-image: none;
+	color: var(--sui-mb-text-color);
+	font-size: var(--sui-mb-font-size);
+	font-weight: var(--sui-mb-font-weight);
+	line-height: var(--sui-mb-line-height);
+	text-transform: var(--sui-mb-text-transform);
+	
+	/* Layout */
+	position: relative;
+	overflow: hidden;
+	border-radius: var(--sui-mb-border-radius);
+	border-width: var(--sui-mb-border-width);
+	border-style: solid;
+	border-color: var(--sui-mb-border-color);
+	padding: var(--sui-mb-padding);
+	
+	/* Mask pour Safari */
+	-webkit-mask-image: -webkit-radial-gradient(#000, #fff);
+	
+	/* Display */
+	display: inline-block;
+	
+	/* Reset link */
+	text-decoration: none;
+	
+	/* Transition */
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* État disabled */
+.salient-ui-mb-button:disabled {
+	cursor: default;
+	opacity: 0.5;
+}
+
+/* État focus pour Firefox */
+.salient-ui-mb-button:-moz-focusring {
+	outline: auto;
+}
+
+/* Focus pour accessibilité */
+.salient-ui-mb-button:focus {
+	outline: none;
+}
+
+.salient-ui-mb-button:focus-visible {
+	outline: 2px solid var(--sui-mb-text-color);
+	outline-offset: 4px;
+}
+
+/* Hover effect */
+.salient-ui-mb-button:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Active effect */
+.salient-ui-mb-button:active {
+	transform: translateY(0);
+}
+
+/* ==========================================================================
+   MARQUEE BUTTON - Spans (texte et marquee)
+   ========================================================================== */
+
+.salient-ui-mb-button span {
+	display: grid;
+	inset: 0;
+	place-items: center;
+	position: absolute;
+	transition: opacity var(--sui-mb-opacity-duration) var(--sui-mb-opacity-easing);
+	pointer-events: none;
+	user-select: none;
+	-webkit-user-select: none;
+}
+
+/* ==========================================================================
+   MARQUEE BUTTON - Texte normal
+   ========================================================================== */
+
+.salient-ui-mb-text {
+	opacity: 1;
+	z-index: 1;
+}
+
+/* Cacher le texte au hover */
+.salient-ui-mb-button:hover .salient-ui-mb-text {
+	opacity: 0;
+}
+
+/* ==========================================================================
+   MARQUEE BUTTON - Texte marquee
+   ========================================================================== */
+
+.salient-ui-mb-marquee {
+	opacity: 0;
+	position: relative;
+	z-index: 2;
+	
+	/* Animation */
+	animation: sui-mb-marquee var(--sui-mb-marquee-duration) var(--sui-mb-marquee-easing) infinite;
+	animation-play-state: paused;
+	
+	/* Text-shadow pour créer l'effet de répétition */
+	text-shadow: 
+		var(--sui-mb-text-color) var(--sui-mb-marquee-spacing) 0,
+		var(--sui-mb-text-color) calc(var(--sui-mb-marquee-spacing) * -1) 0,
+		var(--sui-mb-text-color) calc(var(--sui-mb-marquee-spacing) * -2) 0;
+}
+
+/* Afficher et animer le marquee au hover */
+.salient-ui-mb-button:hover .salient-ui-mb-marquee {
+	animation-play-state: running;
+	opacity: 1;
+}
+
+/* ==========================================================================
+   MARQUEE BUTTON - Animation keyframes
+   ========================================================================== */
+
+@keyframes sui-mb-marquee {
+	0% {
+		transform: translateX(var(--sui-mb-marquee-start));
+	}
+	100% {
+		transform: translateX(var(--sui-mb-marquee-end));
+	}
+}
+
+/* Animation Webkit */
+@-webkit-keyframes sui-mb-marquee {
+	0% {
+		transform: translateX(var(--sui-mb-marquee-start));
+	}
+	100% {
+		transform: translateX(var(--sui-mb-marquee-end));
+	}
+}
+
+/* ==========================================================================
+   MARQUEE BUTTON - SVG (si utilisé)
+   ========================================================================== */
+
+.salient-ui-mb-button svg {
+	display: block;
+	vertical-align: middle;
+}
+
+/* ==========================================================================
+   MARQUEE BUTTON - Éléments cachés
+   ========================================================================== */
+
+.salient-ui-mb-button [hidden] {
+	display: none;
+}
+
+/* ==========================================================================
+   MARQUEE BUTTON - Responsive
+   ========================================================================== */
+
+@media (max-width: 768px) {
+	.salient-ui-mb-button {
+		font-size: calc(var(--sui-mb-font-size) * 0.9);
+		padding: calc(0.8rem * 0.9) calc(3rem * 0.8);
+	}
+}
+
+@media (max-width: 480px) {
+	.salient-ui-mb-button {
+		font-size: calc(var(--sui-mb-font-size) * 0.8);
+		padding: calc(0.8rem * 0.8) calc(3rem * 0.6);
+	}
+}
+
+/* ==========================================================================
+   MARQUEE BUTTON - Accessibilité
+   ========================================================================== */
+
+/* Respecter la préférence de mouvement réduit */
+@media (prefers-reduced-motion: reduce) {
+	.salient-ui-mb-button,
+	.salient-ui-mb-button span {
+		transition: none;
+	}
+	
+	.salient-ui-mb-marquee {
+		animation: none !important;
+	}
+	
+	/* Afficher le texte normal même au hover */
+	.salient-ui-mb-button:hover .salient-ui-mb-text {
+		opacity: 1;
+	}
+	
+	/* Cacher le marquee */
+	.salient-ui-mb-button:hover .salient-ui-mb-marquee {
+		opacity: 0;
+	}
+}
+
+/* Mode sombre */
+@media (prefers-color-scheme: dark) {
+	/* Les couleurs sont gérées par les inline styles */
+}
+
+/* ==========================================================================
+   MARQUEE BUTTON - Print
+   ========================================================================== */
+
+@media print {
+	.salient-ui-mb-button {
+		border-style: solid;
+	}
+	
+	.salient-ui-mb-marquee {
+		display: none;
+	}
+	
+	.salient-ui-mb-text {
+		opacity: 1 !important;
+	}
+}

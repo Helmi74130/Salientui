@@ -1,0 +1,396 @@
+/**
+ * SalientUI - Styles du composant Particle Glow Button
+ * Bouton avec particules animées et effet de lueur
+ *
+ * @package SalientUI
+ * @since 1.0.0
+ */
+
+/* ==========================================================================
+   PARTICLE GLOW BUTTON - Bouton principal
+   ========================================================================== */
+
+.salient-ui-pgb-button {
+	/* Variables par défaut (surchargées par inline styles) */
+	--sui-pgb-duration: 7s;
+	--sui-pgb-easing: linear;
+	--sui-pgb-c-color-1: rgba(255, 163, 26, 0.7);
+	--sui-pgb-c-color-2: #1a23ff;
+	--sui-pgb-c-color-3: #e21bda;
+	--sui-pgb-c-color-4: rgba(255, 232, 26, 0.7);
+	--sui-pgb-c-shadow: rgba(255, 223, 87, 0.5);
+	--sui-pgb-c-shadow-inset-top: rgba(255, 223, 52, 0.9);
+	--sui-pgb-c-shadow-inset-bottom: rgba(255, 250, 215, 0.8);
+	--sui-pgb-c-radial-inner: #ffd215;
+	--sui-pgb-c-radial-outer: #fff172;
+	--sui-pgb-c-color: #fff;
+	--sui-pgb-font-size: 16px;
+	--sui-pgb-font-weight: 600;
+	--sui-pgb-letter-spacing: 0.02em;
+	--sui-pgb-border-radius: 24px;
+	--sui-pgb-min-width: 132px;
+	--sui-pgb-padding-vertical: 12px;
+	--sui-pgb-particle-size: 40px;
+	--sui-pgb-shadow-blur: 14px;
+
+	/* Reset */
+	-webkit-tap-highlight-color: transparent;
+	-webkit-appearance: none;
+	outline: none;
+	border: none;
+	padding: 0;
+	margin: 0;
+	
+	/* Layout */
+	position: relative;
+	display: table;
+	cursor: pointer;
+	
+	/* Style */
+	border-radius: var(--sui-pgb-border-radius);
+	text-align: center;
+	font-weight: var(--sui-pgb-font-weight);
+	font-size: var(--sui-pgb-font-size);
+	letter-spacing: var(--sui-pgb-letter-spacing);
+	line-height: 1.5;
+	color: var(--sui-pgb-c-color);
+	
+	/* Background gradient */
+	background: radial-gradient(
+		circle,
+		var(--sui-pgb-c-radial-inner),
+		var(--sui-pgb-c-radial-outer) 80%
+	);
+	
+	/* Shadow externe */
+	box-shadow: 0 0 var(--sui-pgb-shadow-blur) var(--sui-pgb-c-shadow);
+	
+	/* Transition */
+	transition: transform 0.2s ease, box-shadow 0.3s ease;
+	
+	/* Reset link */
+	text-decoration: none;
+}
+
+/* Si c'est un lien */
+.salient-ui-pgb-button[href] {
+	display: inline-table;
+}
+
+/* Hover effect */
+.salient-ui-pgb-button:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px calc(var(--sui-pgb-shadow-blur) * 1.5) var(--sui-pgb-c-shadow);
+}
+
+/* Active effect */
+.salient-ui-pgb-button:active {
+	transform: translateY(0);
+}
+
+/* Focus pour accessibilité */
+.salient-ui-pgb-button:focus {
+	outline: none;
+}
+
+.salient-ui-pgb-button:focus-visible {
+	outline: 2px solid var(--sui-pgb-c-color);
+	outline-offset: 4px;
+}
+
+/* ==========================================================================
+   PARTICLE GLOW BUTTON - Pseudo-élément ::before (ombres internes)
+   ========================================================================== */
+
+.salient-ui-pgb-button::before {
+	content: "";
+	pointer-events: none;
+	position: absolute;
+	z-index: 3;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	border-radius: var(--sui-pgb-border-radius);
+	box-shadow:
+		inset 0 3px 12px var(--sui-pgb-c-shadow-inset-top),
+		inset 0 -3px 4px var(--sui-pgb-c-shadow-inset-bottom);
+}
+
+/* ==========================================================================
+   PARTICLE GLOW BUTTON - Wrapper (conteneur des particules)
+   ========================================================================== */
+
+.salient-ui-pgb-wrapper {
+	/* Masque pour cacher l'overflow des particules */
+	-webkit-mask-image: -webkit-radial-gradient(white, black);
+	overflow: hidden;
+	border-radius: var(--sui-pgb-border-radius);
+	min-width: var(--sui-pgb-min-width);
+	padding: var(--sui-pgb-padding-vertical) 0;
+	position: relative;
+}
+
+/* Texte du bouton */
+.salient-ui-pgb-wrapper span {
+	display: inline-block;
+	position: relative;
+	z-index: 1;
+	pointer-events: none;
+}
+
+/* ==========================================================================
+   PARTICLE GLOW BUTTON - Cercles/Particules
+   ========================================================================== */
+
+.salient-ui-pgb-circle {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: var(--sui-pgb-particle-size);
+	height: var(--sui-pgb-particle-size);
+	border-radius: 50%;
+	filter: blur(var(--blur, 8px));
+	background: var(--background, transparent);
+	transform: translate(var(--x, 0), var(--y, 0)) translateZ(0);
+	animation: var(--animation, none) var(--sui-pgb-duration) var(--sui-pgb-easing) infinite;
+	pointer-events: none;
+}
+
+/* Configuration des couleurs et blur par groupe de particules */
+.salient-ui-pgb-circle-1,
+.salient-ui-pgb-circle-9,
+.salient-ui-pgb-circle-10 {
+	--background: var(--sui-pgb-c-color-4);
+}
+
+.salient-ui-pgb-circle-3,
+.salient-ui-pgb-circle-4 {
+	--background: var(--sui-pgb-c-color-2);
+	--blur: 14px;
+}
+
+.salient-ui-pgb-circle-5,
+.salient-ui-pgb-circle-6 {
+	--background: var(--sui-pgb-c-color-3);
+	--blur: 16px;
+}
+
+.salient-ui-pgb-circle-2,
+.salient-ui-pgb-circle-7,
+.salient-ui-pgb-circle-8,
+.salient-ui-pgb-circle-11,
+.salient-ui-pgb-circle-12 {
+	--background: var(--sui-pgb-c-color-1);
+	--blur: 12px;
+}
+
+/* Position initiale et animation pour chaque cercle */
+.salient-ui-pgb-circle-1 {
+	--x: 0;
+	--y: -40px;
+	--animation: sui-pgb-circle-1;
+}
+
+.salient-ui-pgb-circle-2 {
+	--x: 92px;
+	--y: 8px;
+	--animation: sui-pgb-circle-2;
+}
+
+.salient-ui-pgb-circle-3 {
+	--x: -12px;
+	--y: -12px;
+	--animation: sui-pgb-circle-3;
+}
+
+.salient-ui-pgb-circle-4 {
+	--x: 80px;
+	--y: -12px;
+	--animation: sui-pgb-circle-4;
+}
+
+.salient-ui-pgb-circle-5 {
+	--x: 12px;
+	--y: -4px;
+	--animation: sui-pgb-circle-5;
+}
+
+.salient-ui-pgb-circle-6 {
+	--x: 56px;
+	--y: 16px;
+	--animation: sui-pgb-circle-6;
+}
+
+.salient-ui-pgb-circle-7 {
+	--x: 8px;
+	--y: 28px;
+	--animation: sui-pgb-circle-7;
+}
+
+.salient-ui-pgb-circle-8 {
+	--x: 28px;
+	--y: -4px;
+	--animation: sui-pgb-circle-8;
+}
+
+.salient-ui-pgb-circle-9 {
+	--x: 20px;
+	--y: -12px;
+	--animation: sui-pgb-circle-9;
+}
+
+.salient-ui-pgb-circle-10 {
+	--x: 64px;
+	--y: 16px;
+	--animation: sui-pgb-circle-10;
+}
+
+.salient-ui-pgb-circle-11 {
+	--x: 4px;
+	--y: 4px;
+	--animation: sui-pgb-circle-11;
+}
+
+.salient-ui-pgb-circle-12 {
+	--blur: 14px;
+	--x: 52px;
+	--y: 4px;
+	--animation: sui-pgb-circle-12;
+}
+
+/* ==========================================================================
+   PARTICLE GLOW BUTTON - Animations keyframes
+   ========================================================================== */
+
+@keyframes sui-pgb-circle-1 {
+	33% {
+		transform: translate(0px, 16px) translateZ(0);
+	}
+	66% {
+		transform: translate(12px, 64px) translateZ(0);
+	}
+}
+
+@keyframes sui-pgb-circle-2 {
+	33% {
+		transform: translate(80px, -10px) translateZ(0);
+	}
+	66% {
+		transform: translate(72px, -48px) translateZ(0);
+	}
+}
+
+@keyframes sui-pgb-circle-3 {
+	33% {
+		transform: translate(20px, 12px) translateZ(0);
+	}
+	66% {
+		transform: translate(12px, 4px) translateZ(0);
+	}
+}
+
+@keyframes sui-pgb-circle-4 {
+	33% {
+		transform: translate(76px, -12px) translateZ(0);
+	}
+	66% {
+		transform: translate(112px, -8px) translateZ(0);
+	}
+}
+
+@keyframes sui-pgb-circle-5 {
+	33% {
+		transform: translate(84px, 28px) translateZ(0);
+	}
+	66% {
+		transform: translate(40px, -32px) translateZ(0);
+	}
+}
+
+@keyframes sui-pgb-circle-6 {
+	33% {
+		transform: translate(28px, -16px) translateZ(0);
+	}
+	66% {
+		transform: translate(76px, -56px) translateZ(0);
+	}
+}
+
+@keyframes sui-pgb-circle-7 {
+	33% {
+		transform: translate(8px, 28px) translateZ(0);
+	}
+	66% {
+		transform: translate(20px, -60px) translateZ(0);
+	}
+}
+
+@keyframes sui-pgb-circle-8 {
+	33% {
+		transform: translate(32px, -4px) translateZ(0);
+	}
+	66% {
+		transform: translate(56px, -20px) translateZ(0);
+	}
+}
+
+@keyframes sui-pgb-circle-9 {
+	33% {
+		transform: translate(20px, -12px) translateZ(0);
+	}
+	66% {
+		transform: translate(80px, -8px) translateZ(0);
+	}
+}
+
+@keyframes sui-pgb-circle-10 {
+	33% {
+		transform: translate(68px, 20px) translateZ(0);
+	}
+	66% {
+		transform: translate(100px, 28px) translateZ(0);
+	}
+}
+
+@keyframes sui-pgb-circle-11 {
+	33% {
+		transform: translate(4px, 4px) translateZ(0);
+	}
+	66% {
+		transform: translate(68px, 20px) translateZ(0);
+	}
+}
+
+@keyframes sui-pgb-circle-12 {
+	33% {
+		transform: translate(56px, 0px) translateZ(0);
+	}
+	66% {
+		transform: translate(60px, -32px) translateZ(0);
+	}
+}
+
+/* ==========================================================================
+   PARTICLE GLOW BUTTON - Responsive
+   ========================================================================== */
+
+@media (max-width: 768px) {
+	.salient-ui-pgb-button {
+		font-size: calc(var(--sui-pgb-font-size) * 0.9);
+	}
+}
+
+/* ==========================================================================
+   PARTICLE GLOW BUTTON - Accessibilité
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+	.salient-ui-pgb-circle {
+		animation: none !important;
+	}
+	
+	.salient-ui-pgb-button {
+		transition: none;
+	}
+}

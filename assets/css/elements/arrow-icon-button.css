@@ -1,0 +1,226 @@
+/**
+ * SalientUI - Styles du composant Arrow Icon Button
+ * Bouton avec icône flèche et animation diagonale
+ *
+ * @package SalientUI
+ * @since 1.0.0
+ */
+
+/* ==========================================================================
+   ARROW ICON BUTTON - Bouton principal
+   ========================================================================== */
+
+.salient-ui-aib-button {
+	/* Variables par défaut (surchargées par inline styles) */
+	--sui-aib-primary-color: #7808d0;
+	--sui-aib-bg-hover: #000;
+	--sui-aib-text-color: #fff;
+	--sui-aib-icon-bg: #fff;
+	--sui-aib-icon-color: #7808d0;
+	--sui-aib-icon-color-hover: #000;
+	--sui-aib-font-size: 16px;
+	--sui-aib-font-weight: 600;
+	--sui-aib-padding: 0.75rem 1.5rem;
+	--sui-aib-padding-left: 20px;
+	--sui-aib-border-radius: 10rem;
+	--sui-aib-gap: 0.75rem;
+	--sui-aib-icon-wrapper-size: 25px;
+	--sui-aib-icon-svg-size: 10px;
+	--sui-aib-bg-transition: 0.3s;
+	--sui-aib-icon-transition: 0.3s;
+	--sui-aib-transition-timing: ease-in-out;
+	--sui-aib-icon-copy-delay: 0.1s;
+
+	/* Reset */
+	line-height: 1;
+	border: none;
+	margin: 0;
+	-webkit-tap-highlight-color: transparent;
+	
+	/* Layout */
+	display: inline-flex;
+	align-items: center;
+	gap: var(--sui-aib-gap);
+	cursor: pointer;
+	
+	/* Style */
+	background-color: var(--sui-aib-primary-color);
+	color: var(--sui-aib-text-color);
+	border-radius: var(--sui-aib-border-radius);
+	font-size: var(--sui-aib-font-size);
+	font-weight: var(--sui-aib-font-weight);
+	padding: var(--sui-aib-padding);
+	padding-left: var(--sui-aib-padding-left);
+	
+	/* Texte */
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-decoration: none;
+	
+	/* Transition */
+	transition: background-color var(--sui-aib-bg-transition) var(--sui-aib-transition-timing);
+}
+
+/* Si c'est un lien */
+.salient-ui-aib-button[href] {
+	display: inline-flex;
+}
+
+/* État disabled */
+.salient-ui-aib-button:disabled {
+	cursor: default;
+	opacity: 0.5;
+}
+
+/* Hover */
+.salient-ui-aib-button:hover {
+	background-color: var(--sui-aib-bg-hover);
+}
+
+/* Active */
+.salient-ui-aib-button:active {
+	transform: scale(0.98);
+}
+
+/* Focus pour accessibilité */
+.salient-ui-aib-button:focus {
+	outline: none;
+}
+
+.salient-ui-aib-button:focus-visible {
+	outline: 2px solid var(--sui-aib-text-color);
+	outline-offset: 4px;
+}
+
+/* ==========================================================================
+   ARROW ICON BUTTON - Wrapper icône
+   ========================================================================== */
+
+.salient-ui-aib-icon-wrapper {
+	/* Empêcher le rétrécissement */
+	flex-shrink: 0;
+	
+	/* Dimensions */
+	width: var(--sui-aib-icon-wrapper-size);
+	height: var(--sui-aib-icon-wrapper-size);
+	
+	/* Layout */
+	position: relative;
+	display: grid;
+	place-items: center;
+	
+	/* Style */
+	color: var(--sui-aib-icon-color);
+	background-color: var(--sui-aib-icon-bg);
+	border-radius: 50%;
+	
+	/* Overflow pour animation */
+	overflow: hidden;
+	
+	/* Transition */
+	transition: color var(--sui-aib-bg-transition) var(--sui-aib-transition-timing);
+}
+
+/* Changement couleur au hover */
+.salient-ui-aib-button:hover .salient-ui-aib-icon-wrapper {
+	color: var(--sui-aib-icon-color-hover);
+}
+
+/* ==========================================================================
+   ARROW ICON BUTTON - SVG icône
+   ========================================================================== */
+
+.salient-ui-aib-icon-svg {
+	width: var(--sui-aib-icon-svg-size);
+	height: auto;
+	display: block;
+	pointer-events: none;
+}
+
+/* Icône copie (positionnée hors vue) */
+.salient-ui-aib-icon-svg--copy {
+	position: absolute;
+	transform: translate(-150%, 150%);
+}
+
+/* ==========================================================================
+   ARROW ICON BUTTON - Animations au hover
+   ========================================================================== */
+
+/* Première icône sort par le haut-droit */
+.salient-ui-aib-button:hover .salient-ui-aib-icon-svg:first-child {
+	transition: transform var(--sui-aib-icon-transition) var(--sui-aib-transition-timing);
+	transform: translate(150%, -150%);
+}
+
+/* Copie entre par le bas-gauche avec délai */
+.salient-ui-aib-button:hover .salient-ui-aib-icon-svg--copy {
+	transition: transform var(--sui-aib-icon-transition) var(--sui-aib-transition-timing) var(--sui-aib-icon-copy-delay);
+	transform: translate(0, 0);
+}
+
+/* ==========================================================================
+   ARROW ICON BUTTON - Responsive
+   ========================================================================== */
+
+@media (max-width: 768px) {
+	.salient-ui-aib-button {
+		font-size: calc(var(--sui-aib-font-size) * 0.9);
+		padding: calc(0.75rem * 0.9) calc(1.5rem * 0.9);
+		padding-left: calc(var(--sui-aib-padding-left) * 0.9);
+	}
+	
+	.salient-ui-aib-icon-wrapper {
+		width: calc(var(--sui-aib-icon-wrapper-size) * 0.9);
+		height: calc(var(--sui-aib-icon-wrapper-size) * 0.9);
+	}
+}
+
+@media (max-width: 480px) {
+	.salient-ui-aib-button {
+		font-size: calc(var(--sui-aib-font-size) * 0.85);
+		padding: calc(0.75rem * 0.8) calc(1.5rem * 0.8);
+		padding-left: calc(var(--sui-aib-padding-left) * 0.8);
+		gap: calc(var(--sui-aib-gap) * 0.8);
+	}
+	
+	.salient-ui-aib-icon-wrapper {
+		width: calc(var(--sui-aib-icon-wrapper-size) * 0.85);
+		height: calc(var(--sui-aib-icon-wrapper-size) * 0.85);
+	}
+}
+
+/* ==========================================================================
+   ARROW ICON BUTTON - Accessibilité
+   ========================================================================== */
+
+/* Respecter la préférence de mouvement réduit */
+@media (prefers-reduced-motion: reduce) {
+	.salient-ui-aib-button,
+	.salient-ui-aib-icon-wrapper,
+	.salient-ui-aib-icon-svg {
+		transition: none !important;
+	}
+	
+	.salient-ui-aib-button:hover .salient-ui-aib-icon-svg:first-child {
+		transform: none;
+	}
+	
+	.salient-ui-aib-button:hover .salient-ui-aib-icon-svg--copy {
+		transform: translate(-150%, 150%);
+	}
+}
+
+/* Mode sombre */
+@media (prefers-color-scheme: dark) {
+	/* Les couleurs sont gérées par les inline styles */
+}
+
+/* ==========================================================================
+   ARROW ICON BUTTON - Sans icône
+   ========================================================================== */
+
+.salient-ui-aib-button:not(:has(.salient-ui-aib-icon-wrapper)) {
+	padding-left: var(--sui-aib-padding);
+}

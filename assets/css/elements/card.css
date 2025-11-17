@@ -1,0 +1,177 @@
+/**
+ * SalientUI - Styles du composant Card
+ * Styles spécifiques à la card moderne
+ *
+ * @package SalientUI
+ * @since 1.0.0
+ */
+
+/* ==========================================================================
+   CARD - Styles de base
+   ========================================================================== */
+
+.salient-ui-card {
+	border-radius: var(--sui-radius-lg);
+	background-color: var(--sui-card);
+	color: var(--sui-card-foreground);
+	overflow: hidden;
+	transition: var(--sui-transition);
+}
+
+/* ==========================================================================
+   CARD - Variante Default
+   ========================================================================== */
+
+.salient-ui-card--default {
+	border: 1px solid var(--sui-border);
+}
+
+/* ==========================================================================
+   CARD - Variante Bordered
+   ========================================================================== */
+
+.salient-ui-card--bordered {
+	border: 2px solid var(--sui-border);
+}
+
+/* ==========================================================================
+   CARD - Variante Elevated
+   ========================================================================== */
+
+.salient-ui-card--elevated {
+	border: 1px solid var(--sui-border);
+	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.salient-ui-card--elevated:hover {
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+	transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   CARD - Clickable
+   ========================================================================== */
+
+.salient-ui-card--clickable {
+	cursor: pointer;
+}
+
+.salient-ui-card--clickable:hover {
+	border-color: var(--sui-primary);
+}
+
+/* ==========================================================================
+   CARD - Image
+   ========================================================================== */
+
+.salient-ui-card__image {
+	width: 100%;
+	overflow: hidden;
+	line-height: 0;
+}
+
+.salient-ui-card__image img {
+	width: 100%;
+	height: auto;
+	display: block;
+	object-fit: cover;
+}
+
+/* ==========================================================================
+   CARD - Body
+   ========================================================================== */
+
+.salient-ui-card__body {
+	padding: 1.5rem;
+}
+
+.salient-ui-card--with-image .salient-ui-card__body {
+	padding-top: 1rem;
+}
+
+/* ==========================================================================
+   CARD - Title
+   ========================================================================== */
+
+.salient-ui-card__title {
+	font-size: 1.25rem;
+	font-weight: 600;
+	line-height: 1.4;
+	margin: 0 0 0.75rem 0;
+	color: var(--sui-card-foreground);
+}
+
+/* ==========================================================================
+   CARD - Content
+   ========================================================================== */
+
+.salient-ui-card__content {
+	font-size: 0.875rem;
+	line-height: 1.6;
+	color: var(--sui-muted-foreground);
+	margin-bottom: 1rem;
+}
+
+.salient-ui-card__content:last-child {
+	margin-bottom: 0;
+}
+
+.salient-ui-card__content p {
+	margin: 0 0 1em 0;
+}
+
+.salient-ui-card__content p:last-child {
+	margin-bottom: 0;
+}
+
+/* ==========================================================================
+   CARD - Footer
+   ========================================================================== */
+
+.salient-ui-card__footer {
+	padding-top: 1rem;
+	border-top: 1px solid var(--sui-border);
+	margin-top: 1rem;
+}
+
+/* ==========================================================================
+   CARD - Link
+   ========================================================================== */
+
+.salient-ui-card__link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.875rem;
+	font-weight: 500;
+	color: var(--sui-primary);
+	text-decoration: none;
+	transition: var(--sui-transition);
+}
+
+.salient-ui-card__link:hover {
+	color: #27272a;
+}
+
+.salient-ui-card__link-arrow {
+	display: inline-block;
+	transition: transform 0.2s ease-in-out;
+}
+
+.salient-ui-card__link:hover .salient-ui-card__link-arrow {
+	transform: translateX(4px);
+}
+
+/* ==========================================================================
+   CARD - Responsive
+   ========================================================================== */
+
+@media (max-width: 768px) {
+	.salient-ui-card__body {
+		padding: 1rem;
+	}
+
+	.salient-ui-card__title {
+		font-size: 1.125rem;
+	}
+}

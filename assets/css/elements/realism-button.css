@@ -1,0 +1,237 @@
+/**
+ * SalientUI - Styles du composant Realism Button
+ * Bouton réaliste avec gradients radiaux et effets lumineux
+ *
+ * @package SalientUI
+ * @since 1.0.0
+ */
+
+/* ==========================================================================
+   REALISM BUTTON - Bouton principal
+   ========================================================================== */
+
+.salient-ui-rb-button {
+	/* Variables par défaut (surchargées par inline styles) */
+	--sui-rb-font-size: 1.4rem;
+	--sui-rb-font-weight: 400;
+	--sui-rb-border-radius-outer: 16px;
+	--sui-rb-border-radius-inner: 14px;
+	--sui-rb-padding: 14px 25px;
+	--sui-rb-text-color: #ffffff;
+
+	/* Layout */
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	
+	/* Style */
+	font-size: var(--sui-rb-font-size);
+	border-radius: var(--sui-rb-border-radius-outer);
+	border: none;
+	padding: 2px;
+	
+	/* Background par défaut (surchargé par inline styles) */
+	background: radial-gradient(circle 80px at 80% -10%, #ffffff, #181b1b);
+	
+	/* Reset pour les liens */
+	text-decoration: none;
+	
+	/* Selection */
+	user-select: none;
+	-webkit-user-select: none;
+	
+	/* Tap highlight sur mobile */
+	-webkit-tap-highlight-color: transparent;
+	
+	/* Transition */
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Si c'est un lien */
+.salient-ui-rb-button[href] {
+	display: inline-block;
+}
+
+/* État hover */
+.salient-ui-rb-button:hover {
+	transform: translateY(-2px);
+}
+
+/* État active */
+.salient-ui-rb-button:active {
+	transform: translateY(0);
+}
+
+/* État focus pour l'accessibilité */
+.salient-ui-rb-button:focus {
+	outline: none;
+}
+
+.salient-ui-rb-button:focus-visible {
+	outline: 2px solid var(--sui-rb-text-color, #ffffff);
+	outline-offset: 4px;
+}
+
+/* ==========================================================================
+   REALISM BUTTON - Pseudo-élément ::after (effet de lumière)
+   ========================================================================== */
+
+.salient-ui-rb-button::after {
+	content: "";
+	position: absolute;
+	width: 65%;
+	height: 60%;
+	border-radius: 120px;
+	top: 0;
+	right: 0;
+	box-shadow: 0 0 20px rgba(255, 255, 255, 0.22);
+	z-index: -1;
+	pointer-events: none;
+}
+
+/* ==========================================================================
+   REALISM BUTTON - Blob lumineux
+   ========================================================================== */
+
+.salient-ui-rb-blob {
+	/* Position */
+	position: absolute;
+	width: 70px;
+	height: 100%;
+	border-radius: var(--sui-rb-border-radius-outer);
+	bottom: 0;
+	left: 0;
+	
+	/* Background par défaut (surchargé par inline styles) */
+	background: radial-gradient(
+		circle 60px at 0% 100%,
+		#3fe9ff,
+		rgba(0, 0, 255, 0.5),
+		transparent
+	);
+	
+	/* Shadow */
+	box-shadow: -10px 10px 30px rgba(0, 81, 255, 0.18);
+	
+	/* Z-index */
+	z-index: 0;
+	pointer-events: none;
+	
+	/* Transition pour animation hover */
+	transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Animation du blob au hover */
+.salient-ui-rb-button:hover .salient-ui-rb-blob {
+	opacity: 0.8;
+	transform: scale(1.05);
+}
+
+/* ==========================================================================
+   REALISM BUTTON - Inner (contenu du bouton)
+   ========================================================================== */
+
+.salient-ui-rb-inner {
+	/* Layout */
+	padding: var(--sui-rb-padding);
+	border-radius: var(--sui-rb-border-radius-inner);
+	position: relative;
+	z-index: 3;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	
+	/* Style */
+	color: var(--sui-rb-text-color);
+	font-weight: var(--sui-rb-font-weight);
+	
+	/* Background par défaut (surchargé par inline styles) */
+	background: radial-gradient(circle 80px at 80% -50%, #777777, #0f1111);
+	
+	/* Empêcher la sélection */
+	user-select: none;
+	-webkit-user-select: none;
+}
+
+/* ==========================================================================
+   REALISM BUTTON - Pseudo-élément ::before de inner (overlay)
+   ========================================================================== */
+
+.salient-ui-rb-inner::before {
+	content: "";
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	border-radius: var(--sui-rb-border-radius-inner);
+	
+	/* Background par défaut (surchargé par inline styles) */
+	background: radial-gradient(
+		circle 60px at 0% 100%,
+		rgba(0, 225, 255, 0.1),
+		rgba(0, 0, 255, 0.07),
+		transparent
+	);
+	
+	/* Position */
+	position: absolute;
+	z-index: 1;
+	pointer-events: none;
+	
+	/* Transition */
+	transition: opacity 0.3s ease;
+}
+
+/* Augmenter l'opacité de l'overlay au hover */
+.salient-ui-rb-button:hover .salient-ui-rb-inner::before {
+	opacity: 1.2;
+}
+
+/* ==========================================================================
+   REALISM BUTTON - Responsive
+   ========================================================================== */
+
+@media (max-width: 768px) {
+	.salient-ui-rb-button {
+		/* Réduire légèrement la taille sur mobile */
+		font-size: calc(var(--sui-rb-font-size) * 0.9);
+	}
+	
+	.salient-ui-rb-blob {
+		/* Réduire la largeur du blob sur mobile */
+		width: 50px;
+	}
+}
+
+@media (max-width: 480px) {
+	.salient-ui-rb-button {
+		/* Encore plus petit sur très petit écran */
+		font-size: calc(var(--sui-rb-font-size) * 0.8);
+	}
+}
+
+/* ==========================================================================
+   REALISM BUTTON - Accessibilité
+   ========================================================================== */
+
+/* Respecter la préférence de mouvement réduit */
+@media (prefers-reduced-motion: reduce) {
+	.salient-ui-rb-button,
+	.salient-ui-rb-blob,
+	.salient-ui-rb-inner::before {
+		transition: none;
+	}
+	
+	.salient-ui-rb-button:hover {
+		transform: none;
+	}
+}
+
+/* ==========================================================================
+   REALISM BUTTON - Mode sombre
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+	/* Les couleurs sont gérées par les inline styles */
+	/* Pas de style supplémentaire nécessaire ici */
+}

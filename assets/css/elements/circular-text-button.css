@@ -1,0 +1,268 @@
+/**
+ * SalientUI - Styles du composant Circular Text Button
+ * Bouton circulaire avec texte rotatif
+ *
+ * @package SalientUI
+ * @since 1.0.0
+ */
+
+/* ==========================================================================
+   CIRCULAR TEXT BUTTON - Bouton principal
+   ========================================================================== */
+
+.salient-ui-ctb-button {
+	/* Variables par défaut (surchargées par inline styles) */
+	--sui-ctb-button-size: 100px;
+	--sui-ctb-circle-size: 40px;
+	--sui-ctb-icon-size: 14px;
+	--sui-ctb-font-size: 14px;
+	--sui-ctb-font-weight: 600;
+	--sui-ctb-text-inset: 7px;
+	--sui-ctb-bg-color: #7808d0;
+	--sui-ctb-bg-hover: #000;
+	--sui-ctb-text-color: #fff;
+	--sui-ctb-circle-bg: #fff;
+	--sui-ctb-icon-color: #7808d0;
+	--sui-ctb-icon-color-hover: #000;
+	--sui-ctb-rotation-duration: 8s;
+	--sui-ctb-rotation-timing: linear;
+	--sui-ctb-bg-transition: 300ms;
+	--sui-ctb-scale-transition: 200ms;
+	--sui-ctb-hover-scale: 1.05;
+	--sui-ctb-icon-transition: 0.3s;
+	--sui-ctb-icon-delay: 0.1s;
+	--sui-ctb-rotation-angle: 19deg;
+
+	/* Reset */
+	cursor: pointer;
+	border: none;
+	margin: 0;
+	padding: 0;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-appearance: button;
+	
+	/* Style */
+	background: var(--sui-ctb-bg-color);
+	color: var(--sui-ctb-text-color);
+	
+	/* Dimensions */
+	width: var(--sui-ctb-button-size);
+	height: var(--sui-ctb-button-size);
+	border-radius: 50% !important;
+	
+	/* Layout */
+	position: relative;
+	display: grid;
+	place-content: center;
+	overflow: hidden;
+	
+	/* Typographie */
+	font-weight: var(--sui-ctb-font-weight);
+	
+	/* Transition */
+	transition:
+		background var(--sui-ctb-bg-transition) ease,
+		transform var(--sui-ctb-scale-transition) ease;
+	
+	/* Reset link */
+	text-decoration: none;
+}
+
+/* Si c'est un lien */
+.salient-ui-ctb-button[href] {
+	display: grid;
+}
+
+/* État disabled */
+.salient-ui-ctb-button:disabled {
+	cursor: default;
+	opacity: 0.5;
+}
+
+/* Hover */
+.salient-ui-ctb-button:hover {
+	background: var(--sui-ctb-bg-hover);
+	transform: scale(var(--sui-ctb-hover-scale));
+}
+
+/* Active */
+.salient-ui-ctb-button:active {
+	transform: scale(0.98);
+}
+
+/* Focus pour accessibilité */
+.salient-ui-ctb-button:focus {
+	outline: none;
+}
+
+.salient-ui-ctb-button:focus-visible {
+	outline: 2px solid var(--sui-ctb-text-color);
+	outline-offset: 4px;
+}
+
+/* ==========================================================================
+   CIRCULAR TEXT BUTTON - Texte rotatif
+   ========================================================================== */
+
+.salient-ui-ctb-text {
+	/* Reset */
+	margin: 0;
+	padding: 0;
+	
+	/* Position */
+	position: absolute;
+	inset: 0;
+	
+	/* Animation */
+	animation: sui-ctb-text-rotation var(--sui-ctb-rotation-duration) var(--sui-ctb-rotation-timing) infinite;
+	
+	/* Empêcher la sélection */
+	user-select: none;
+	-webkit-user-select: none;
+	pointer-events: none;
+}
+
+/* Caractères individuels */
+.salient-ui-ctb-text > span {
+	/* Position */
+	position: absolute;
+	transform: rotate(calc(var(--sui-ctb-rotation-angle) * var(--index)));
+	inset: var(--sui-ctb-text-inset);
+	
+	/* Typographie */
+	font-size: var(--sui-ctb-font-size);
+	font-weight: var(--sui-ctb-font-weight);
+	color: var(--sui-ctb-text-color);
+	
+	/* Centrage */
+	text-align: center;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+}
+
+/* ==========================================================================
+   CIRCULAR TEXT BUTTON - Animation rotation
+   ========================================================================== */
+
+@keyframes sui-ctb-text-rotation {
+	to {
+		rotate: 360deg;
+	}
+}
+
+/* ==========================================================================
+   CIRCULAR TEXT BUTTON - Cercle intérieur
+   ========================================================================== */
+
+.salient-ui-ctb-circle {
+	/* Position */
+	position: relative;
+	
+	/* Dimensions */
+	width: var(--sui-ctb-circle-size);
+	height: var(--sui-ctb-circle-size);
+	
+	/* Style */
+	background: var(--sui-ctb-circle-bg);
+	color: var(--sui-ctb-icon-color);
+	border-radius: 50%;
+	overflow: hidden;
+	
+	/* Layout */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	
+	/* Z-index */
+	z-index: 1;
+}
+
+/* Changement couleur au hover */
+.salient-ui-ctb-button:hover .salient-ui-ctb-circle {
+	color: var(--sui-ctb-icon-color-hover);
+}
+
+/* ==========================================================================
+   CIRCULAR TEXT BUTTON - Icône
+   ========================================================================== */
+
+.salient-ui-ctb-icon {
+	width: var(--sui-ctb-icon-size);
+	height: auto;
+	display: block;
+	pointer-events: none;
+}
+
+/* Icône copie */
+.salient-ui-ctb-icon--copy {
+	position: absolute;
+	transform: translate(-150%, 150%);
+}
+
+/* Animation première icône */
+.salient-ui-ctb-button:hover .salient-ui-ctb-icon:first-child {
+	transition: transform var(--sui-ctb-icon-transition) ease-in-out;
+	transform: translate(150%, -150%);
+}
+
+/* Animation icône copie */
+.salient-ui-ctb-button:hover .salient-ui-ctb-icon--copy {
+	transition: transform var(--sui-ctb-icon-transition) ease-in-out var(--sui-ctb-icon-delay);
+	transform: translate(0, 0);
+}
+
+/* ==========================================================================
+   CIRCULAR TEXT BUTTON - Responsive
+   ========================================================================== */
+
+@media (max-width: 768px) {
+	.salient-ui-ctb-button {
+		width: calc(var(--sui-ctb-button-size) * 0.9);
+		height: calc(var(--sui-ctb-button-size) * 0.9);
+	}
+	
+	.salient-ui-ctb-circle {
+		width: calc(var(--sui-ctb-circle-size) * 0.9);
+		height: calc(var(--sui-ctb-circle-size) * 0.9);
+	}
+}
+
+@media (max-width: 480px) {
+	.salient-ui-ctb-button {
+		width: calc(var(--sui-ctb-button-size) * 0.8);
+		height: calc(var(--sui-ctb-button-size) * 0.8);
+	}
+	
+	.salient-ui-ctb-circle {
+		width: calc(var(--sui-ctb-circle-size) * 0.8);
+		height: calc(var(--sui-ctb-circle-size) * 0.8);
+	}
+}
+
+/* ==========================================================================
+   CIRCULAR TEXT BUTTON - Accessibilité
+   ========================================================================== */
+
+/* Respecter la préférence de mouvement réduit */
+@media (prefers-reduced-motion: reduce) {
+	.salient-ui-ctb-button,
+	.salient-ui-ctb-text,
+	.salient-ui-ctb-icon {
+		transition: none !important;
+		animation: none !important;
+	}
+	
+	.salient-ui-ctb-button:hover .salient-ui-ctb-icon:first-child {
+		transform: none;
+	}
+	
+	.salient-ui-ctb-button:hover .salient-ui-ctb-icon--copy {
+		transform: translate(-150%, 150%);
+	}
+}
+
+/* Mode sombre */
+@media (prefers-color-scheme: dark) {
+	/* Les couleurs sont gérées par les inline styles */
+}

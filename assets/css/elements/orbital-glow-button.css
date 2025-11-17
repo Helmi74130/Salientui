@@ -1,0 +1,328 @@
+/**
+ * SalientUI - Styles du composant Orbital Glow Button
+ * Bouton avec effet orbital lumineux et filtres SVG
+ *
+ * @package SalientUI
+ * @since 1.0.0
+ */
+
+/* ==========================================================================
+   ORBITAL GLOW BUTTON - Conteneur principal
+   ========================================================================== */
+
+.salient-ui-ogb-container {
+	/* Variables par défaut (surchargées par inline styles) */
+	--sui-ogb-width: 120px;
+	--sui-ogb-height: 60px;
+	--sui-ogb-border-radius: 17px;
+	--sui-ogb-bg-color: #111215;
+	--sui-ogb-text-color: #ffffff;
+	--sui-ogb-font-size: 16px;
+	--sui-ogb-font-weight: 400;
+	--sui-ogb-border-color: rgba(0, 0, 0, 0.33);
+	--sui-ogb-border-width: 3px;
+	--sui-ogb-gradient-left: #ff5500;
+	--sui-ogb-gradient-right: #0055ff;
+	--sui-ogb-blur-intense: 0.25em;
+	--sui-ogb-blur-outer: 2em;
+	--sui-ogb-blur-inner: 2px;
+	--sui-ogb-glow-opacity: 0.5;
+	--sui-ogb-rotation-duration: 8s;
+	--sui-ogb-pulse-duration: 4s;
+	--sui-ogb-transition-duration: 0.3s;
+
+	/* Layout */
+	position: relative;
+	display: inline-block;
+	margin: 2em;
+	width: fit-content;
+}
+
+/* ==========================================================================
+   ORBITAL GLOW BUTTON - SVG Filters (cachés)
+   ========================================================================== */
+
+.salient-ui-ogb-svg-filters {
+	position: absolute;
+	width: 0;
+	height: 0;
+	pointer-events: none;
+	visibility: hidden;
+}
+
+/* ==========================================================================
+   ORBITAL GLOW BUTTON - Conteneur du bouton
+   ========================================================================== */
+
+.salient-ui-ogb-button-container {
+	position: relative;
+  z-index: 1;
+	width: var(--sui-ogb-width);
+	height: var(--sui-ogb-height);
+}
+
+/* ==========================================================================
+   ORBITAL GLOW BUTTON - Bordure du bouton
+   ========================================================================== */
+
+.salient-ui-ogb-button-border {
+	padding: var(--sui-ogb-border-width);
+	position: absolute;
+	inset: 0;
+	background: var(--sui-ogb-border-color);
+	border-radius: var(--sui-ogb-border-radius);
+	overflow: hidden;
+	z-index: 1;
+}
+
+/* ==========================================================================
+   ORBITAL GLOW BUTTON - Bouton visible
+   ========================================================================== */
+
+.salient-ui-ogb-button {
+	/* Layout */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	position: relative;
+	
+	/* Style */
+	border: none;
+	border-radius: calc(var(--sui-ogb-border-radius) - var(--sui-ogb-border-width));
+	background: var(--sui-ogb-bg-color);
+	color: var(--sui-ogb-text-color);
+	font-size: var(--sui-ogb-font-size);
+	font-weight: var(--sui-ogb-font-weight);
+	overflow: hidden;
+	
+	/* Selection */
+	user-select: none;
+	-webkit-user-select: none;
+}
+
+/* ==========================================================================
+   ORBITAL GLOW BUTTON - Bouton réel (invisible mais interactif)
+   ========================================================================== */
+
+.salient-ui-ogb-real-button {
+	position: absolute;
+	width: var(--sui-ogb-width);
+	height: var(--sui-ogb-height);
+	z-index: 10;
+	outline: none;
+	border: none;
+	border-radius: var(--sui-ogb-border-radius);
+	cursor: pointer;
+	opacity: 0;
+	background: transparent;
+	-webkit-tap-highlight-color: transparent;
+}
+
+/* Si c'est un lien */
+.salient-ui-ogb-real-button[href] {
+	text-decoration: none;
+	display: block;
+}
+
+/* État focus pour l'accessibilité */
+.salient-ui-ogb-real-button:focus-visible {
+	outline: 2px solid var(--sui-ogb-gradient-left);
+	outline-offset: 4px;
+}
+
+/* ==========================================================================
+   ORBITAL GLOW BUTTON - Backdrop (effet de grille)
+   ========================================================================== */
+/*
+.salient-ui-ogb-backdrop {
+	position: absolute;
+	inset: -9900%;
+	background: radial-gradient(
+		circle at 50% 50%,
+		transparent 0,
+		transparent 20%,
+		rgba(17, 17, 17, 0.67) 50%
+	);
+	background-size: 3px 3px;
+	z-index: -1;
+	pointer-events: none;
+}
+*/
+/* ==========================================================================
+   ORBITAL GLOW BUTTON - Effets de rotation (spin)
+   ========================================================================== */
+
+.salient-ui-ogb-spin {
+	position: absolute;
+	inset: 0;
+	z-index: -2;
+	opacity: var(--sui-ogb-glow-opacity);
+	overflow: hidden;
+	transition: opacity var(--sui-ogb-transition-duration) ease;
+	pointer-events: none;
+}
+
+/* Active l'opacité au hover */
+.salient-ui-ogb-real-button:hover ~ .salient-ui-ogb-button-container .salient-ui-ogb-spin,
+.salient-ui-ogb-real-button:focus ~ .salient-ui-ogb-button-container .salient-ui-ogb-spin {
+	opacity: 1;
+}
+
+/* Active l'opacité au clic */
+.salient-ui-ogb-real-button:active ~ .salient-ui-ogb-button-container .salient-ui-ogb-spin {
+	opacity: 1;
+}
+
+/* Spin blur (flou externe) */
+.salient-ui-ogb-spin-blur {
+	filter: blur(var(--sui-ogb-blur-outer));
+}
+
+/* Spin intense (flou moyen) */
+.salient-ui-ogb-spin-intense {
+	inset: -0.125em;
+	filter: blur(var(--sui-ogb-blur-intense));
+	border-radius: 0.75em;
+}
+
+/* Spin inside (flou interne) */
+.salient-ui-ogb-spin-inside {
+	inset: -2px;
+	border-radius: inherit;
+	filter: blur(var(--sui-ogb-blur-inner));
+	z-index: 0;
+}
+
+/* ==========================================================================
+   ORBITAL GLOW BUTTON - Pseudo-éléments animés (gradients)
+   ========================================================================== */
+
+.salient-ui-ogb-spin::before {
+	content: "";
+	position: absolute;
+	inset: -150%;
+	animation:
+		sui-ogb-speen var(--sui-ogb-rotation-duration) cubic-bezier(0.56, 0.15, 0.28, 0.86) infinite,
+		sui-ogb-woah var(--sui-ogb-pulse-duration) infinite;
+	animation-play-state: paused;
+}
+
+/* Active l'animation au hover */
+.salient-ui-ogb-real-button:hover ~ .salient-ui-ogb-button-container .salient-ui-ogb-spin::before,
+.salient-ui-ogb-real-button:focus ~ .salient-ui-ogb-button-container .salient-ui-ogb-spin::before {
+	animation-play-state: running;
+}
+
+/* Gradients pour chaque couche */
+.salient-ui-ogb-spin-blur::before {
+	background: linear-gradient(
+		90deg,
+		var(--sui-ogb-gradient-left) 30%,
+		transparent 50%,
+		var(--sui-ogb-gradient-right) 70%
+	);
+}
+
+.salient-ui-ogb-spin-intense::before {
+	background: linear-gradient(
+		90deg,
+		color-mix(in srgb, var(--sui-ogb-gradient-left) 80%, white) 20%,
+		transparent 45%,
+		transparent 55%,
+		color-mix(in srgb, var(--sui-ogb-gradient-right) 80%, white) 80%
+	);
+}
+
+.salient-ui-ogb-spin-inside::before {
+	background: linear-gradient(
+		90deg,
+		color-mix(in srgb, var(--sui-ogb-gradient-left) 60%, white) 30%,
+		transparent 45%,
+		transparent 55%,
+		color-mix(in srgb, var(--sui-ogb-gradient-right) 60%, white) 70%
+	);
+}
+
+/* Fallback pour les navigateurs ne supportant pas color-mix */
+@supports not (background: color-mix(in srgb, red, blue)) {
+	.salient-ui-ogb-spin-intense::before {
+		background: linear-gradient(
+			90deg,
+			#ff9955 20%,
+			transparent 45%,
+			transparent 55%,
+			#5599ff 80%
+		);
+	}
+
+	.salient-ui-ogb-spin-inside::before {
+		background: linear-gradient(
+			90deg,
+			#ffcc99 30%,
+			transparent 45%,
+			transparent 55%,
+			#99ccff 70%
+		);
+	}
+}
+
+/* ==========================================================================
+   ORBITAL GLOW BUTTON - Animations keyframes
+   ========================================================================== */
+
+/* Animation de rotation */
+@keyframes sui-ogb-speen {
+	0% {
+		rotate: 10deg;
+	}
+	50% {
+		rotate: 190deg;
+	}
+	100% {
+		rotate: 370deg;
+	}
+}
+
+/* Animation de pulsation */
+@keyframes sui-ogb-woah {
+	0%, 100% {
+		scale: 1;
+	}
+	50% {
+		scale: 0.75;
+	}
+}
+
+/* ==========================================================================
+   ORBITAL GLOW BUTTON - Responsive
+   ========================================================================== */
+
+@media (max-width: 768px) {
+	.salient-ui-ogb-container {
+		/* Réduire la marge sur mobile */
+		margin: 1em;
+	}
+}
+
+/* ==========================================================================
+   ORBITAL GLOW BUTTON - Accessibilité
+   ========================================================================== */
+
+/* Respecter la préférence de mouvement réduit */
+@media (prefers-reduced-motion: reduce) {
+	.salient-ui-ogb-spin::before {
+		animation: none !important;
+	}
+	
+	.salient-ui-ogb-spin {
+		transition: none;
+	}
+}
+
+/* Mode sombre */
+@media (prefers-color-scheme: dark) {
+	/* Les couleurs sont gérées par les inline styles */
+}

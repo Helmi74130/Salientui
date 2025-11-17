@@ -1,0 +1,212 @@
+/**
+ * SalientUI - Styles du composant Prism Button v2
+ * Bouton avec effet prisme 3D et animation flip
+ *
+ * @package SalientUI
+ * @since 1.0.0
+ */
+
+/* ==========================================================================
+   PRISM BUTTON V2 - Conteneur principal
+   ========================================================================== */
+
+.salient-ui-prism-button-v2 {
+	/* Selection et comportement */
+	-webkit-user-select: none;
+	user-select: none;
+	cursor: pointer;
+	width: fit-content;
+	display: inline-block;
+
+	/* Easing personnalisés pour animations fluides */
+	--elastic-ease-out: linear(
+		0,
+		0.5737 7.6%,
+		0.8382 11.87%,
+		0.9463 14.19%,
+		1.0292 16.54%,
+		1.0886 18.97%,
+		1.1258 21.53%,
+		1.137 22.97%,
+		1.1424 24.48%,
+		1.1423 26.1%,
+		1.1366 27.86%,
+		1.1165 31.01%,
+		1.0507 38.62%,
+		1.0219 42.57%,
+		0.9995 46.99%,
+		0.9872 51.63%,
+		0.9842 58.77%,
+		1.0011 81.26%,
+		1
+	);
+	--bounce-cubic-ease: cubic-bezier(0.34, 1.44, 0.64, 1);
+
+	/* Désactiver le highlight au tap sur mobile */
+	-webkit-tap-highlight-color: transparent;
+
+	/* Valeurs par défaut (peuvent être surchargées par inline styles) */
+	--translate: 10px;
+	--translate-duration: 0.7s;
+	perspective: 40em;
+}
+
+/* Si utilisé comme lien */
+.salient-ui-prism-button-v2[href] {
+	text-decoration: none;
+}
+
+/* ==========================================================================
+   PRISM BUTTON V2 - Inner (conteneur de l'effet 3D)
+   ========================================================================== */
+
+.salient-ui-prism-button-v2__inner {
+	/* Empêcher les événements de pointer sur les éléments internes */
+	pointer-events: none;
+
+	/* Configuration 3D essentielle */
+	transform-style: preserve-3d;
+	display: grid;
+
+	/* Animation de rotation */
+	transition: transform var(--translate-duration) var(--bounce-cubic-ease);
+
+	/* Positionner tous les spans sur la même grille */
+	grid-template-areas: 'content';
+}
+
+/* ==========================================================================
+   PRISM BUTTON V2 - Faces du prisme (before, after, text)
+   ========================================================================== */
+
+/* Les pseudo-éléments before et after créent les faces supplémentaires */
+.salient-ui-prism-button-v2__inner::before,
+.salient-ui-prism-button-v2__inner::after {
+	/* Récupérer le texte depuis data-text */
+	content: attr(data-text);
+
+	/* Positionnement */
+	grid-area: content;
+	text-align: center;
+	align-content: center;
+	display: block;
+	box-sizing: border-box;
+	height: 100%;
+	width: 100%;
+
+	/* Empêcher les événements de pointer */
+	pointer-events: none;
+
+	/* Masquer la face arrière pendant la rotation */
+	backface-visibility: hidden;
+
+	/* Styles par défaut (surchargés par inline styles) */
+	padding: 10px 15px;
+	font-size: 16px;
+	font-weight: 400;
+	color: #ffffff;
+	background: #000000;
+	border-radius: 5px;
+}
+
+/* Face avant (visible au repos) */
+.salient-ui-prism-button-v2__inner::before {
+	/* Décalée vers l'avant en Z */
+	translate: 0 0 var(--translate);
+}
+
+/* Texte principal (face du dessous après rotation) */
+.salient-ui-prism-button-v2__text {
+	/* Positionnement sur la grille */
+	grid-area: content;
+	width: 100%;
+	height: 100%;
+
+	/* Masquer la face arrière */
+	backface-visibility: hidden;
+
+	/* Positionné à l'arrière (rotation de 180deg sur X) */
+	translate: 0 0 calc(var(--translate) * -1);
+	rotate: x -180deg;
+
+	/* Styles par défaut (surchargés par inline styles) */
+	padding: 10px 15px;
+	font-size: 16px;
+	font-weight: 400;
+	color: #ffffff;
+	background: #000000;
+	border-radius: 5px;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Face du bas (crée l'effet de profondeur) */
+.salient-ui-prism-button-v2__inner::after {
+	/* Positionné à 90deg pour créer la transition */
+	translate: 0 50% 0;
+	rotate: x -90deg;
+}
+
+/* ==========================================================================
+   PRISM BUTTON V2 - Animation au hover
+   ========================================================================== */
+
+/* Rotation de l'inner au hover (uniquement sur desktop) */
+@media (hover: hover) and (pointer: fine) {
+	.salient-ui-prism-button-v2:is(:hover, :focus-visible) .salient-ui-prism-button-v2__inner {
+		/* Rotation de 180deg sur l'axe X pour révéler la face arrière */
+		transform: rotateX(180deg);
+	}
+}
+
+/* ==========================================================================
+   PRISM BUTTON V2 - États additionnels
+   ========================================================================== */
+
+/* État focus pour l'accessibilité */
+.salient-ui-prism-button-v2:focus {
+	outline: none;
+}
+
+.salient-ui-prism-button-v2:focus-visible {
+	outline: 2px solid var(--sui-primary, #18181b);
+	outline-offset: 2px;
+}
+
+/* État actif (pressed) */
+.salient-ui-prism-button-v2:active .salient-ui-prism-button-v2__inner {
+	/* Légère réduction de l'échelle au clic */
+	transform: scale(0.98);
+}
+
+/* ==========================================================================
+   PRISM BUTTON V2 - Responsive
+   ========================================================================== */
+
+@media (max-width: 768px) {
+	.salient-ui-prism-button-v2 {
+		/* Optionnel : pleine largeur sur mobile */
+		/* width: 100%; */
+	}
+
+	/* Réduire la perspective sur petit écran */
+	.salient-ui-prism-button-v2 {
+		perspective: 30em;
+	}
+
+	/* Réduire le translate pour un effet plus subtil */
+	.salient-ui-prism-button-v2 {
+		--translate: 7px;
+	}
+}
+
+/* ==========================================================================
+   PRISM BUTTON V2 - Mode sombre
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+	/* Les couleurs sont gérées par les inline styles */
+	/* Pas de style supplémentaire nécessaire ici */
+}

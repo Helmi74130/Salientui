@@ -1,0 +1,295 @@
+/**
+ * SalientUI - Styles du composant Sparkle Glow Button
+ * Bouton avec effet sparkle, bordures tournantes et lueur
+ *
+ * @package SalientUI
+ * @since 1.0.0
+ */
+
+/* ==========================================================================
+   SPARKLE GLOW BUTTON - Bouton principal
+   ========================================================================== */
+
+.salient-ui-sgb-button {
+	/* Variables par défaut (surchargées par inline styles) */
+	--sui-sgb-bg-color: hsla(0 0% 12% / 1);
+	--sui-sgb-border-radius: 9999px;
+	--sui-sgb-transition: 0.3s ease-in-out;
+	--sui-sgb-active: 0;
+	--sui-sgb-font-size: 1rem;
+	--sui-sgb-font-weight: 500;
+	--sui-sgb-padding: 1rem 2rem;
+	--sui-sgb-gap: 0.5rem;
+	--sui-sgb-text-color: #ffffff;
+	--sui-sgb-text-color-hover: #ffffff;
+	--sui-sgb-sparkle-color: #ffffff;
+	--sui-sgb-sparkle-size: 1.75rem;
+	--sui-sgb-dots-color: #ffffff;
+	--sui-sgb-dots-height: 2rem;
+	--sui-sgb-border-rotation: 2s;
+	--sui-sgb-hover-scale: 1.1;
+	--sui-sgb-sparkle-duration: 1.5s;
+	--sui-sgb-sparkle-delay: 0.5s;
+
+	/* Reset */
+	cursor: pointer;
+	border: none;
+	padding: var(--sui-sgb-padding);
+	margin: 0;
+	outline: none;
+	-webkit-tap-highlight-color: transparent;
+	
+	/* Layout */
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: var(--sui-sgb-gap);
+	transform-origin: center;
+	
+	/* Style */
+	background-color: transparent;
+	border-radius: var(--sui-sgb-border-radius);
+	font-size: var(--sui-sgb-font-size);
+	font-weight: var(--sui-sgb-font-weight);
+	
+	/* Transform */
+	transform: scale(calc(1 + (var(--sui-sgb-active, 0) * (var(--sui-sgb-hover-scale) - 1))));
+	transition: transform var(--sui-sgb-transition);
+	
+	/* Reset link */
+	text-decoration: none;
+}
+
+/* Si c'est un lien */
+.salient-ui-sgb-button[href] {
+	display: inline-flex;
+}
+
+/* Hover et focus */
+.salient-ui-sgb-button:is(:hover, :focus-visible) {
+	--sui-sgb-active: 1;
+}
+
+/* Active */
+.salient-ui-sgb-button:active {
+	transform: scale(1);
+}
+
+/* Focus pour accessibilité */
+.salient-ui-sgb-button:focus {
+	outline: none;
+}
+
+.salient-ui-sgb-button:focus-visible {
+	outline: 2px solid var(--sui-sgb-text-color);
+	outline-offset: 4px;
+}
+
+/* ==========================================================================
+   SPARKLE GLOW BUTTON - Pseudo-élément ::before (fond principal)
+   ========================================================================== */
+
+.salient-ui-sgb-button::before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+	height: 100%;
+	background-color: var(--sui-sgb-bg-color);
+	border-radius: var(--sui-sgb-border-radius);
+	box-shadow: 
+		inset 0 0.5px hsl(0, 0%, 100%), 
+		inset 0 -1px 2px 0 hsl(0, 0%, 0%),
+		0px 4px 10px -4px hsla(0 0% 0% / calc(1 - var(--sui-sgb-active, 0))),
+		0 0 0 calc(var(--sui-sgb-active, 0) * 0.375rem) hsl(260 97% 50% / 0.75);
+	transition: all var(--sui-sgb-transition);
+	z-index: 0;
+	pointer-events: none;
+}
+
+/* ==========================================================================
+   SPARKLE GLOW BUTTON - Pseudo-élément ::after (gradient hover)
+   ========================================================================== */
+
+.salient-ui-sgb-button::after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+	height: 100%;
+	background-color: hsla(260 97% 61% / 0.75);
+	background-image: 
+		radial-gradient(at 51% 89%, hsla(266, 45%, 74%, 1) 0px, transparent 50%),
+		radial-gradient(at 100% 100%, hsla(266, 36%, 60%, 1) 0px, transparent 50%),
+		radial-gradient(at 22% 91%, hsla(266, 36%, 60%, 1) 0px, transparent 50%);
+	background-position: top;
+	opacity: var(--sui-sgb-active, 0);
+	border-radius: var(--sui-sgb-border-radius);
+	transition: opacity var(--sui-sgb-transition);
+	z-index: 2;
+	pointer-events: none;
+}
+
+/* ==========================================================================
+   SPARKLE GLOW BUTTON - Bordure tournante
+   ========================================================================== */
+
+.salient-ui-sgb-dots-border {
+	--size-border: calc(100% + 2px);
+	
+	overflow: hidden;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: var(--size-border);
+	height: var(--size-border);
+	background-color: transparent;
+	border-radius: var(--sui-sgb-border-radius);
+	z-index: -10;
+	pointer-events: none;
+}
+
+.salient-ui-sgb-dots-border::before {
+	content: "";
+	position: absolute;
+	top: 30%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	transform-origin: left;
+	width: 100%;
+	height: var(--sui-sgb-dots-height);
+	background-color: var(--sui-sgb-dots-color);
+	mask: linear-gradient(transparent 0%, white 120%);
+	-webkit-mask: linear-gradient(transparent 0%, white 120%);
+	animation: sui-sgb-rotate var(--sui-sgb-border-rotation) linear infinite;
+}
+
+/* Animation de rotation */
+@keyframes sui-sgb-rotate {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+/* ==========================================================================
+   SPARKLE GLOW BUTTON - Icône Sparkle
+   ========================================================================== */
+
+.salient-ui-sgb-sparkle {
+	position: relative;
+	z-index: 10;
+	width: var(--sui-sgb-sparkle-size);
+	height: auto;
+	pointer-events: none;
+	flex-shrink: 0;
+}
+
+.salient-ui-sgb-sparkle .salient-ui-sgb-path {
+	fill: var(--sui-sgb-sparkle-color);
+	stroke: var(--sui-sgb-sparkle-color);
+	transform-origin: center;
+	color: var(--sui-sgb-sparkle-color);
+}
+
+/* Animation des paths au hover */
+.salient-ui-sgb-button:is(:hover, :focus) .salient-ui-sgb-sparkle .salient-ui-sgb-path {
+	animation: sui-sgb-path var(--sui-sgb-sparkle-duration) linear var(--sui-sgb-sparkle-delay) infinite;
+}
+
+/* Scale différent pour chaque path */
+.salient-ui-sgb-sparkle .salient-ui-sgb-path:nth-child(1) {
+	--scale-path: 1.2;
+}
+
+.salient-ui-sgb-sparkle .salient-ui-sgb-path:nth-child(2) {
+	--scale-path: 1.2;
+}
+
+.salient-ui-sgb-sparkle .salient-ui-sgb-path:nth-child(3) {
+	--scale-path: 1.2;
+}
+
+/* Animation path */
+@keyframes sui-sgb-path {
+	0%, 34%, 71%, 100% {
+		transform: scale(1);
+	}
+	17% {
+		transform: scale(var(--scale-path, 1));
+	}
+	49% {
+		transform: scale(var(--scale-path, 1));
+	}
+	83% {
+		transform: scale(var(--scale-path, 1));
+	}
+}
+
+/* ==========================================================================
+   SPARKLE GLOW BUTTON - Texte
+   ========================================================================== */
+
+.salient-ui-sgb-text {
+	position: relative;
+	z-index: 10;
+	background-image: linear-gradient(
+		90deg,
+		var(--sui-sgb-text-color) 0%,
+		color-mix(in srgb, var(--sui-sgb-text-color-hover), transparent calc((1 - var(--sui-sgb-active, 0)) * 100%)) 120%
+	);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	color: transparent;
+	pointer-events: none;
+	user-select: none;
+	-webkit-user-select: none;
+}
+
+/* Fallback pour navigateurs ne supportant pas color-mix */
+@supports not (color: color-mix(in srgb, red, blue)) {
+	.salient-ui-sgb-text {
+		background-image: linear-gradient(
+			90deg,
+			var(--sui-sgb-text-color) 0%,
+			var(--sui-sgb-text-color-hover) 120%
+		);
+	}
+}
+
+/* ==========================================================================
+   SPARKLE GLOW BUTTON - Responsive
+   ========================================================================== */
+
+@media (max-width: 768px) {
+	.salient-ui-sgb-button {
+		font-size: calc(var(--sui-sgb-font-size) * 0.9);
+		padding: calc(var(--sui-sgb-padding) * 0.8);
+	}
+	
+	.salient-ui-sgb-sparkle {
+		width: calc(var(--sui-sgb-sparkle-size) * 0.8);
+	}
+}
+
+/* ==========================================================================
+   SPARKLE GLOW BUTTON - Accessibilité
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+	.salient-ui-sgb-button,
+	.salient-ui-sgb-button::before,
+	.salient-ui-sgb-button::after {
+		transition: none;
+	}
+	
+	.salient-ui-sgb-dots-border::before,
+	.salient-ui-sgb-sparkle .salient-ui-sgb-path {
+		animation: none !important;
+	}
+}

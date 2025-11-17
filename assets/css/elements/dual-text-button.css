@@ -1,0 +1,219 @@
+/**
+ * SalientUI - Styles du composant Dual Text Button
+ * Bouton avec deux textes qui s'échangent verticalement
+ *
+ * @package SalientUI
+ * @since 1.0.0
+ */
+
+/* ==========================================================================
+   DUAL TEXT BUTTON - Bouton principal
+   ========================================================================== */
+
+.salient-ui-dtb-button {
+	/* Variables par défaut (surchargées par inline styles) */
+	--sui-dtb-width: 140px;
+	--sui-dtb-height: 50px;
+	--sui-dtb-border-radius: 50px;
+	--sui-dtb-font-size: 12px;
+	--sui-dtb-font-weight: 400;
+	--sui-dtb-text-transform: uppercase;
+	--sui-dtb-letter-spacing: 1px;
+	--sui-dtb-text-color: #fff;
+	--sui-dtb-shadow-color: rgba(0, 0, 0, 0.5);
+	--sui-dtb-shadow-y: 15px;
+	--sui-dtb-shadow-blur: 30px;
+	--sui-dtb-transition-duration: 0.5s;
+	--sui-dtb-transition-timing: ease;
+
+	/* Dimensions */
+	width: var(--sui-dtb-width);
+	height: var(--sui-dtb-height);
+	
+	/* Style */
+	background: linear-gradient(to top, #00154c, #12376e, #23487f);
+	color: var(--sui-dtb-text-color);
+	border-radius: var(--sui-dtb-border-radius);
+	border: none;
+	outline: none;
+	
+	/* Layout */
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	overflow: hidden;
+	
+	/* Ombre */
+	box-shadow: 0 var(--sui-dtb-shadow-y) var(--sui-dtb-shadow-blur) var(--sui-dtb-shadow-color);
+	
+	/* Reset */
+	-webkit-tap-highlight-color: transparent;
+	-webkit-appearance: button;
+	text-decoration: none;
+	margin: 0;
+	padding: 0;
+	
+	/* Transition */
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Si c'est un lien */
+.salient-ui-dtb-button[href] {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* État disabled */
+.salient-ui-dtb-button:disabled {
+	cursor: default;
+	opacity: 0.5;
+}
+
+/* Active */
+.salient-ui-dtb-button:active {
+	transform: scale(0.98);
+}
+
+/* Focus pour accessibilité */
+.salient-ui-dtb-button:focus {
+	outline: none;
+}
+
+.salient-ui-dtb-button:focus-visible {
+	outline: 2px solid var(--sui-dtb-text-color);
+	outline-offset: 4px;
+}
+
+/* ==========================================================================
+   DUAL TEXT BUTTON - Spans de texte
+   ========================================================================== */
+
+.salient-ui-dtb-button span {
+	/* Typographie */
+	font-size: var(--sui-dtb-font-size);
+	font-weight: var(--sui-dtb-font-weight);
+	text-transform: var(--sui-dtb-text-transform);
+	letter-spacing: var(--sui-dtb-letter-spacing);
+	
+	/* Transition */
+	transition: top var(--sui-dtb-transition-duration) var(--sui-dtb-transition-timing);
+	
+	/* Empêcher la sélection */
+	user-select: none;
+	-webkit-user-select: none;
+	pointer-events: none;
+}
+
+/* ==========================================================================
+   DUAL TEXT BUTTON - Texte principal (repos)
+   ========================================================================== */
+
+.salient-ui-dtb-text-one {
+	/* Position */
+	position: absolute;
+	width: 100%;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
+	
+	/* Centrage */
+	text-align: center;
+}
+
+/* Animation au hover */
+.salient-ui-dtb-button:hover .salient-ui-dtb-text-one {
+	top: -100%;
+}
+
+/* ==========================================================================
+   DUAL TEXT BUTTON - Texte secondaire (hover)
+   ========================================================================== */
+
+.salient-ui-dtb-text-two {
+	/* Position */
+	position: absolute;
+	width: 100%;
+	top: 150%;
+	left: 0;
+	transform: translateY(-50%);
+	
+	/* Centrage */
+	text-align: center;
+}
+
+/* Animation au hover */
+.salient-ui-dtb-button:hover .salient-ui-dtb-text-two {
+	top: 50%;
+}
+
+/* ==========================================================================
+   DUAL TEXT BUTTON - Responsive
+   ========================================================================== */
+
+@media (max-width: 768px) {
+	.salient-ui-dtb-button {
+		width: calc(var(--sui-dtb-width) * 0.9);
+		height: calc(var(--sui-dtb-height) * 0.9);
+		font-size: calc(var(--sui-dtb-font-size) * 0.9);
+	}
+}
+
+@media (max-width: 480px) {
+	.salient-ui-dtb-button {
+		width: calc(var(--sui-dtb-width) * 0.85);
+		height: calc(var(--sui-dtb-height) * 0.85);
+		font-size: calc(var(--sui-dtb-font-size) * 0.85);
+	}
+}
+
+/* ==========================================================================
+   DUAL TEXT BUTTON - Accessibilité
+   ========================================================================== */
+
+/* Respecter la préférence de mouvement réduit */
+@media (prefers-reduced-motion: reduce) {
+	.salient-ui-dtb-button,
+	.salient-ui-dtb-button span {
+		transition: none !important;
+	}
+	
+	/* Afficher les deux textes superposés */
+	.salient-ui-dtb-button:hover .salient-ui-dtb-text-one {
+		top: 50%;
+		opacity: 0;
+	}
+	
+	.salient-ui-dtb-button:hover .salient-ui-dtb-text-two {
+		top: 50%;
+	}
+	
+	.salient-ui-dtb-text-one,
+	.salient-ui-dtb-text-two {
+		transition: opacity 0.3s ease !important;
+	}
+}
+
+/* Mode sombre */
+@media (prefers-color-scheme: dark) {
+	/* Les couleurs sont gérées par les inline styles */
+}
+
+/* ==========================================================================
+   DUAL TEXT BUTTON - Print
+   ========================================================================== */
+
+@media print {
+	.salient-ui-dtb-button {
+		box-shadow: none;
+		border: 1px solid #000;
+	}
+	
+	.salient-ui-dtb-text-two {
+		display: none;
+	}
+	
+	.salient-ui-dtb-text-one {
+		color: #000;
+	}
+}
